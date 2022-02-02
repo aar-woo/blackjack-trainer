@@ -1,15 +1,7 @@
-// import createCard from './card.mjs';
-// import shuffleDeck from './deck.mjs';
-// import prompt from 'prompt-sync';
-// const prompt = require('prompt-sync')();
 const createCard = require('./card');
 const shuffleDeck = require('./deck')
 const readline = require('readline');
 const prompt = require('prompt-sync')();
-// const rl = readline.createInterface({
-//   input: process.stdin,
-//   output: process.stdout
-// });
 
 const deck = shuffleDeck();
 const playerHand = [];
@@ -36,20 +28,42 @@ function playerAction(action) {
 }
 
 function handTotal(hand) {
-  let total;
+  let total = 0;
   for (let i = 0; i < hand.length; i++) {
-    total += hand[i];
+    const cardValue = hand[i].value
+    if (typeof cardValue === 'string' && cardValue !== 'ace') {
+      total += 10;
+    } else if (cardValue === 'ace') {
+      if (total + 11 > 21) {
+        total += 1;
+      } else {
+        total += 11;
+      }
+    } else {
+      total += cardValue;
+    }
   }
   return total;
 }
 
 function runGame() {
+  let endPlayerDeal = false;
   deal();
-  console.log('player', playerHand);
-  console.log('dealer', dealerHand);
-  const action = prompt('Hit, stand, or double? ');
-  playerAction(action);
-  console.log('player', playerHand)
+  console.log(`Your hand: \n${playerHand[0].value} of ${playerHand[0].suit} \n${playerHand[1].value} of ${playerHand[1].suit}\n`);
+  console.log(`Dealer: \n${dealerHand[0].value} of ${dealerHand[0].suit} \n${dealerHand[1].value} of ${dealerHand[1].suit}`)
+  playerTotal = handTotal(playerHand);
+
+  while (!endPlayerDeal) {
+    const action = prompt('Hit, stand, or double? ');
+    playerAction(action);
+    if (action === 's' || action === 'stand' || playerTotal >= 21) {
+      endPlayerDeal = true;
+    }
+    console.log('playerTotal', playerTotal);
+
+    console.log('player', playerHand)
+  }
+
 }
 
 runGame();

@@ -1,5 +1,3 @@
-// import createCard from './card.mjs';
-// import _ from 'lodash';
 const createCard = require('./card');
 const _ = require('lodash');
 
