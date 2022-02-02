@@ -16,12 +16,10 @@ function createDeck() {
   return deck;
 }
 
-function shuffleDeck(deck) {
-  const shuffledDeck = _.shuffle(deck);
+export default function shuffleDeck() {
+  const shuffledDeck = _.shuffle(createDeck());
   return shuffledDeck;
 }
 
-const deck = createDeck();
-const shuffledDeck = shuffleDeck(deck);
-
-console.log(shuffledDeck);
+// const shuffledDeck = shuffleDeck();
+// console.log(shuffledDeck);
