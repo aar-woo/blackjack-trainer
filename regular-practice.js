@@ -51,7 +51,6 @@ function runGame() {
   deal();
   console.log(`Your hand: \n${playerHand[0].value} of ${playerHand[0].suit} \n${playerHand[1].value} of ${playerHand[1].suit}\n`);
   console.log(`Dealer: \n${dealerHand[0].value} of ${dealerHand[0].suit} \n${dealerHand[1].value} of ${dealerHand[1].suit}`)
-  playerTotal = handTotal(playerHand);
 
   while (!endPlayerDeal) {
     const action = prompt('Hit, stand, or double? ');
@@ -59,9 +58,15 @@ function runGame() {
     if (action === 's' || action === 'stand' || playerTotal >= 21) {
       endPlayerDeal = true;
     }
-    console.log('playerTotal', playerTotal);
-
-    console.log('player', playerHand)
+    playerTotal = handTotal(playerHand);
+    if (playerTotal > 21) {
+      console.log('Player total:', playerTotal);
+      console.log('Bust ):');
+      endPlayerDeal = true;
+    } else {
+      console.log('Player total:', playerTotal);
+      console.log('Player hand', playerHand)
+    }
   }
 
 }
