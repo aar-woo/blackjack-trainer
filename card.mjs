@@ -1,7 +1,9 @@
-export default function createCard(value, suit) {
-  let card = {
-    value,
-    suit
+export default class Card {
+  constructor(value, suit) {
+    this.value = value;
+    this.suit = suit;
   }
-  return card;
 }
+
+const aceofspades = new Card(11, 'spades')
+console.log(aceofspades)
