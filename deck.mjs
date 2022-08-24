@@ -22,6 +22,11 @@ export default class Deck {
 
   shuffle() {
     const shuffledDeck = _.shuffle(this.cards);
-    return shuffledDeck;
+    this.cards = shuffledDeck;
+  }
+
+  deal() {
+    const card = this.cards.pop();
+    return card;
   }
 }
