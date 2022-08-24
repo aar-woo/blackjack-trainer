@@ -5,5 +5,4 @@ export default class Card {
   }
 }
 
-const aceofspades = new Card(11, 'spades')
-console.log(aceofspades)
+
