@@ -28,12 +28,9 @@ export default class Game {
         }
     }
 
+    getPlayerHand(player) {
+        return this.player.hand;
 
+    }
 
 }
-
-const newGame = new Game();
-newGame.dealCards();
-console.log('playerhand:', newGame.player.hand)
-console.log('dealerhand:', newGame.dealer.hand)
-console.log('deck length', newGame.deck.cards.length)
