@@ -34,11 +34,12 @@ export default class Main {
         const handStr = `Your hand: ${hand[0].value} of ${hand[0].suit} and the ${hand[1].value} of ${hand[1].suit}`;;
         const dealerHand = this.game.getDealerHand();
         const dealerHandStr = `The dealer is showing: ${dealerHand[0].value} of ${dealerHand[0].suit}}`;
-        console.log(handStr)
-        console.log(dealerHandStr);
+        return [handStr, dealerHandStr]
     }
 
-    getPlayerAction(playerHandStr) {
+    getPlayerAction([playerHandStr, dealerHandStr]) {
+        console.log(playerHandStr)
+        console.log(dealerHandStr);
         this.reader.question('Hit or Stand? ', input => {
             input = input.toLowerCase();
             if (input === 'stand' || input === 's') {
@@ -49,7 +50,7 @@ export default class Main {
                 this.reader.close();
             } else {
                 console.log('Sorry, please enter a valid input');
-                getPlayerAction(playerHandStr)
+                this.getPlayerAction([playerHandStr, dealerHandStr])
             }
         })
     }
@@ -57,7 +58,7 @@ export default class Main {
 }
 
 const main = new Main();
-main.gameSetup();
-main.getPlayerAction();
+const gameHands = main.gameSetup();
+main.getPlayerAction(gameHands);
 
 
