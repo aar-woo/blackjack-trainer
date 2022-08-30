@@ -28,12 +28,12 @@ export default class Game {
         }
     }
 
-    getPlayerHand() {
-        return this.player.hand;
+    getPlayer() {
+        return this.player;
     }
 
-    getDealerHand() {
-        return this.dealer.hand;
+    getDealer() {
+        return this.dealer;
     }
 
 }

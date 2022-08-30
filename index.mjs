@@ -30,10 +30,10 @@ export default class Main {
 
     gameSetup() {
         this.game.dealCards();
-        const hand = this.game.getPlayerHand();
+        const hand = this.game.getPlayer().hand;
         const handStr = `Your hand: ${hand[0].value} of ${hand[0].suit} and the ${hand[1].value} of ${hand[1].suit}`;;
-        const dealerHand = this.game.getDealerHand();
-        const dealerHandStr = `The dealer is showing: ${dealerHand[0].value} of ${dealerHand[0].suit}}`;
+        const dealerHand = this.game.getDealer().hand;
+        const dealerHandStr = `The dealer is showing: ${dealerHand[0].value} of ${dealerHand[0].suit}`;
         return [handStr, dealerHandStr]
     }
 
