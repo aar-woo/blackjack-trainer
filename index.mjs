@@ -28,11 +28,10 @@ function run() {
     console.log(handStr);
     reader.question('Hit or Stand? ', input => {
         input = input.toLowerCase();
-        if (input === 'stand' || 's') {
+        if (input === 'stand' || input === 's') {
             console.log('Stand')
             reader.close();
-        }
-        if (input === 'hit' || 'h') {
+        } else if (input === 'hit' || input === 'h') {
             console.log('Hit')
             reader.close();
         }
