@@ -14,28 +14,50 @@
 
 import Game from "./game.mjs";
 import readline from "readline";
-const reader = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-})
+// const reader = readline.createInterface({
+//     input: process.stdin,
+//     output: process.stdout
+// })
 
-function run() {
-    const newGame = new Game();
-    newGame.dealCards();
-    const hand = newGame.getPlayerHand();
-    const handStr = 'Your hand is the ' + hand[0].value + " of " + hand[0].suit + ' and the ' + hand[1].value + ' of ' + hand[1].suit;
-    
-    console.log(handStr);
-    reader.question('Hit or Stand? ', input => {
-        input = input.toLowerCase();
-        if (input === 'stand' || input === 's') {
-            console.log('Stand')
-            reader.close();
-        } else if (input === 'hit' || input === 'h') {
-            console.log('Hit')
-            reader.close();
-        }
-    })
+export default class Main {
+    constructor(){
+        this.game = new Game();
+        this.reader = readline.createInterface({
+            input: process.stdin,
+            output: process.stdout
+        })
+    }
+
+    gameSetup() {
+        this.game.dealCards();
+        const hand = this.game.getPlayerHand();
+        const handStr = `Your hand: ${hand[0].value} of ${hand[0].suit} and the ${hand[1].value} of ${hand[1].suit}`;;
+        const dealerHand = this.game.getDealerHand();
+        const dealerHandStr = `The dealer is showing: ${dealerHand[0].value} of ${dealerHand[0].suit}}`;
+        console.log(handStr)
+        console.log(dealerHandStr);
+    }
+
+    getPlayerAction(playerHandStr) {
+        this.reader.question('Hit or Stand? ', input => {
+            input = input.toLowerCase();
+            if (input === 'stand' || input === 's') {
+                console.log('Stand')
+                this.reader.close();
+            } else if (input === 'hit' || input === 'h') {
+                console.log('Hit')
+                this.reader.close();
+            } else {
+                console.log('Sorry, please enter a valid input');
+                getPlayerAction(playerHandStr)
+            }
+        })
+    }
+
 }
 
-run();
+const main = new Main();
+main.gameSetup();
+main.getPlayerAction();
+
+
