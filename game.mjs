@@ -1,16 +1,13 @@
+import Dealer from "./dealer.mjs";
 import Deck from "./deck.mjs";
+import Player from "./player.mjs";
+import readline from "readline";
 
 export default class Game {
     constructor() {
-        this.dealer = {
-            hand: [],
-            total: 0
-        }
+        this.dealer = new Dealer();
 
-        this.player = {
-            hand: [],
-            total: 0
-        }
+        this.player = new Player();
 
         this.deck = (() => {
             const deck = new Deck();
@@ -18,6 +15,11 @@ export default class Game {
             deck.shuffle();
             return deck;
         })()
+
+        this.reader = readline.createInterface({
+            input: process.stdin,
+            output: process.stdout
+        })
         
     }
 
@@ -28,12 +30,40 @@ export default class Game {
         }
     }
 
-    getPlayer() {
-        return this.player;
+    gameSetup() {
+        this.dealCards();
+        const hand = this.player.getHand();
+        const handStr = `Your hand: ${hand[0].value} of ${hand[0].suit} and the ${hand[1].value} of ${hand[1].suit}`;;
+        const dealerHand = this.player.getHand();
+        const dealerHandStr = `The dealer is showing: ${dealerHand[0].value} of ${dealerHand[0].suit}`;
+        return [handStr, dealerHandStr]
     }
 
-    getDealer() {
-        return this.dealer;
+    getPlayerAction([playerHandStr, dealerHandStr]) {
+        console.log(playerHandStr)
+        console.log(dealerHandStr);
+        this.reader.question('Hit or Stand? ', input => {
+            input = input.toLowerCase();
+            if (input === 'stand' || input === 's') {
+                console.log('Stand')
+                this.reader.close();
+            } else if (input === 'hit' || input === 'h') {
+                console.log('Hit')
+                this.reader.close();
+            } else {
+                console.log('Sorry, please enter a valid input');
+                this.getPlayerAction([playerHandStr, dealerHandStr])
+            }
+        })
     }
 
+    // hit(player) {
+    //     if (player === 'player') {
+    //         this.player.hand.push()
+    //     }
+    // } 
 }
+
+const game = new Game();
+const gameHands = game.gameSetup();
+game.getPlayerAction(gameHands);
