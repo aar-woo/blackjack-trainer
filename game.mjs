@@ -31,12 +31,13 @@ export default class Game {
     }
 
     gameSetup() {
-        this.dealCards();
-        const hand = this.player.getHand();
-        const handStr = `Your hand: ${hand[0].value} of ${hand[0].suit} and the ${hand[1].value} of ${hand[1].suit}`;;
+        this.dealCards()
+        const playerTotal = this.player.getTotal();
+        const playerHand = this.player.getHand();
+        const playerHandStr = `Your hand: ${playerHand[0].value} of ${playerHand[0].suit} and the ${playerHand[1].value} of ${playerHand[1].suit}\n Your total: ${playerTotal}`;
         const dealerHand = this.player.getHand();
         const dealerHandStr = `The dealer is showing: ${dealerHand[0].value} of ${dealerHand[0].suit}`;
-        return [handStr, dealerHandStr]
+        return [playerHandStr, playerTotal, dealerHandStr]
     }
 
     getPlayerAction([playerHandStr, dealerHandStr]) {
@@ -57,11 +58,13 @@ export default class Game {
         })
     }
 
-    // hit(player) {
-    //     if (player === 'player') {
-    //         this.player.hand.push()
-    //     }
-    // } 
+    hit(player) {
+        if (player === 'player') {
+            this.player.hand.push()
+        } else if (player === 'dealer') {
+            this.dealer.hand.push();
+        }
+    } 
 }
 
 const game = new Game();
