@@ -32,15 +32,13 @@ export default class Game {
 
     gameSetup() {
         this.dealCards()
-        const dealerHand = this.player.getHand();
-        const playerHandStr = `Your hand: ${this.player.getHandStr()}`;
-        const dealerHandStr = `The dealer is showing: ${dealerHand[0].value} of ${dealerHand[0].suit}`;
-        return [playerHandStr, dealerHandStr]
     }
 
-    getPlayerAction([playerHandStr, dealerHandStr]) {
-        console.log(playerHandStr)
-        console.log(dealerHandStr);
+    getPlayerAction() {
+        const dealerUpcard = `${this.dealer.getHand()[0].value} of ${this.dealer.getHand()[0].suit}`;
+        console.log('Your Hand: ' + this.player.getHandStr() + '\nYour Total: ' + this.player.getTotal());
+        console.log(`The dealer is showing: ` + dealerUpcard);
+        this.runRules();
         this.reader.question('Hit or Stand? ', input => {
             input = input.toLowerCase();
             if (input === 'stand' || input === 's') {
@@ -49,11 +47,10 @@ export default class Game {
             } else if (input === 'hit' || input === 'h') {
                 console.log('Hit')
                 this.hit(this.player);
-                this.runRules();
-                this.reader.close();
+                this.runRules() === 'bust' ? this.reader.close() : this.getPlayerAction();
             } else {
                 console.log('Sorry, please enter a valid input');
-                this.getPlayerAction([playerHandStr, dealerHandStr])
+                this.getPlayerAction()
             }
 
         })
@@ -62,7 +59,6 @@ export default class Game {
     hit(player) {
         if (!(player instanceof(Dealer))) {
             this.player.hand.push(this.deck.deal())
-            console.log(`Your hand is now: ${this.player.getHandStr()}`)
         } else if (player === 'dealer') {
             this.dealer.hand.push(this.deck.deal());
         }
@@ -78,23 +74,24 @@ export default class Game {
         const playerTotal = this.player.getTotal();
 
         if (dealerTotal === 21) {
-                if (dealerCardValues.includes('ace')) {
-                    if (dealerCardValues.includes('king') || dealerCardValues.includes('jack') || dealerCardValues.includes('queen') || dealerCardValues.includes()) {
-                        console.log('Dealer has Blackjack, you lose.');
-                        this.reader.close();
-                    }
+            if (dealerCardValues.includes('ace')) {
+                if (dealerCardValues.includes('king') || dealerCardValues.includes('jack') || dealerCardValues.includes('queen') || dealerCardValues.includes()) {
+                    console.log('Dealer has Blackjack, you lose.');
+                    this.reader.close();
                 }
+            }
         }
 
         if (playerTotal > 21) {
+            console.log('Your Hand: ' + this.player.getHandStr() + '\nYour Total: ' + this.player.getTotal())
             console.log(`Bust! Your hand is greater than 21.`)
+            return 'bust';
         }
-
 
     }
 }
 
 const game = new Game();
-const gameHands = game.gameSetup();
-game.getPlayerAction(gameHands);
+game.gameSetup();
+game.getPlayerAction();
 
