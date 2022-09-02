@@ -34,10 +34,10 @@ export default class Game {
         this.dealCards()
         const playerTotal = this.player.getTotal();
         const playerHand = this.player.getHand();
-        const playerHandStr = `Your hand: ${playerHand[0].value} of ${playerHand[0].suit} and the ${playerHand[1].value} of ${playerHand[1].suit}\n Your total: ${playerTotal}`;
         const dealerHand = this.player.getHand();
+        const playerHandStr = `Your hand: ${playerHand[0].value} of ${playerHand[0].suit} and the ${playerHand[1].value} of ${playerHand[1].suit}\n Your total: ${playerTotal}`;
         const dealerHandStr = `The dealer is showing: ${dealerHand[0].value} of ${dealerHand[0].suit}`;
-        return [playerHandStr, playerTotal, dealerHandStr]
+        return [playerHandStr, dealerHandStr]
     }
 
     getPlayerAction([playerHandStr, dealerHandStr]) {
@@ -56,6 +56,7 @@ export default class Game {
                 this.getPlayerAction([playerHandStr, dealerHandStr])
             }
         })
+        this.runRules();
     }
 
     hit(player) {
@@ -65,8 +66,29 @@ export default class Game {
             this.dealer.hand.push();
         }
     } 
+
+    runRules() {
+       const dealerCardValues = []
+       const playerCardValues = [];
+
+       this.dealer.getHand().forEach(card => { dealerCardValues.push(card.value)})
+       this.player.getHand().forEach(card => { playerCardValues.push(card.value)})
+       
+       const dealerTotal = this.dealer.getTotal();
+       const playerTotal = this.player.getTotal();
+
+       if (dealerTotal === 21) {
+            if (dealerCardValues.includes('ace')) {
+                if (dealerCardValues.includes('king') || dealerCardValues.includes('jack') || dealerCardValues.includes('queen') || dealerCardValues.includes()) {
+                    console.log('Dealer has Blackjack, you lose.');
+                    this.reader.close();
+                }
+            }
+       }
+    }
 }
 
 const game = new Game();
 const gameHands = game.gameSetup();
 game.getPlayerAction(gameHands);
+
