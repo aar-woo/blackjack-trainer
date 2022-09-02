@@ -8,6 +8,19 @@ export default class Player {
         return this.hand;
     }
 
+    getHandStr() {
+        let handStr = `${this.hand[0].value} of ${this.hand[0].suit} and the ${this.hand[1].value} of ${this.hand[1].suit}`
+        if (this.hand.length === 2) {
+            return handStr;
+        }
+        if (this.hand.length > 2) {
+            for (let i = 2; i < this.hand.length; i++) {
+                handStr = `${this.hand[i].value} of ${this.hand[i].suit}, ${handStr}`; 
+            }
+        }
+        return handStr;
+    }
+
     getTotal() {
         this.total = 0;
         const allNumValues = [];

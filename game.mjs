@@ -32,10 +32,8 @@ export default class Game {
 
     gameSetup() {
         this.dealCards()
-        const playerTotal = this.player.getTotal();
-        const playerHand = this.player.getHand();
         const dealerHand = this.player.getHand();
-        const playerHandStr = `Your hand: ${playerHand[0].value} of ${playerHand[0].suit} and the ${playerHand[1].value} of ${playerHand[1].suit}\n Your total: ${playerTotal}`;
+        const playerHandStr = `Your hand: ${this.player.getHandStr()}`;
         const dealerHandStr = `The dealer is showing: ${dealerHand[0].value} of ${dealerHand[0].suit}`;
         return [playerHandStr, dealerHandStr]
     }
@@ -64,7 +62,7 @@ export default class Game {
     hit(player) {
         if (!(player instanceof(Dealer))) {
             this.player.hand.push(this.deck.deal())
-            console.log(`Your hand is now ${this.player.getHand()}`)
+            console.log(`Your hand is now: ${this.player.getHandStr()}`)
         } else if (player === 'dealer') {
             this.dealer.hand.push(this.deck.deal());
         }
@@ -73,10 +71,9 @@ export default class Game {
     runRules() {
         const dealerCardValues = []
         const playerCardValues = [];
-
         this.dealer.getHand().forEach(card => { dealerCardValues.push(card.value)})
         this.player.getHand().forEach(card => { playerCardValues.push(card.value)})
-        console.log('run rules')
+
         const dealerTotal = this.dealer.getTotal();
         const playerTotal = this.player.getTotal();
 
