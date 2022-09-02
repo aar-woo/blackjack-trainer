@@ -50,41 +50,50 @@ export default class Game {
                 this.reader.close();
             } else if (input === 'hit' || input === 'h') {
                 console.log('Hit')
+                this.hit(this.player);
+                this.runRules();
                 this.reader.close();
             } else {
                 console.log('Sorry, please enter a valid input');
                 this.getPlayerAction([playerHandStr, dealerHandStr])
             }
+
         })
-        this.runRules();
     }
 
     hit(player) {
-        if (player === 'player') {
-            this.player.hand.push()
+        if (!(player instanceof(Dealer))) {
+            this.player.hand.push(this.deck.deal())
+            console.log(`Your hand is now ${this.player.getHand()}`)
         } else if (player === 'dealer') {
-            this.dealer.hand.push();
+            this.dealer.hand.push(this.deck.deal());
         }
     } 
 
     runRules() {
-       const dealerCardValues = []
-       const playerCardValues = [];
+        const dealerCardValues = []
+        const playerCardValues = [];
 
-       this.dealer.getHand().forEach(card => { dealerCardValues.push(card.value)})
-       this.player.getHand().forEach(card => { playerCardValues.push(card.value)})
-       
-       const dealerTotal = this.dealer.getTotal();
-       const playerTotal = this.player.getTotal();
+        this.dealer.getHand().forEach(card => { dealerCardValues.push(card.value)})
+        this.player.getHand().forEach(card => { playerCardValues.push(card.value)})
+        console.log('run rules')
+        const dealerTotal = this.dealer.getTotal();
+        const playerTotal = this.player.getTotal();
 
-       if (dealerTotal === 21) {
-            if (dealerCardValues.includes('ace')) {
-                if (dealerCardValues.includes('king') || dealerCardValues.includes('jack') || dealerCardValues.includes('queen') || dealerCardValues.includes()) {
-                    console.log('Dealer has Blackjack, you lose.');
-                    this.reader.close();
+        if (dealerTotal === 21) {
+                if (dealerCardValues.includes('ace')) {
+                    if (dealerCardValues.includes('king') || dealerCardValues.includes('jack') || dealerCardValues.includes('queen') || dealerCardValues.includes()) {
+                        console.log('Dealer has Blackjack, you lose.');
+                        this.reader.close();
+                    }
                 }
-            }
-       }
+        }
+
+        if (playerTotal > 21) {
+            console.log(`Bust! Your hand is greater than 21.`)
+        }
+
+
     }
 }
 
