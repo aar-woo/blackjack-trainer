@@ -39,15 +39,17 @@ export default class Game {
         const dealerUpcard = `${this.dealer.getHand()[0].value} of ${this.dealer.getHand()[0].suit}`;
         console.log('Your Hand: ' + this.player.getHandStr() + '\nYour Total: ' + this.player.getTotal());
         console.log(`The dealer is showing: ` + dealerUpcard);
-        this.runRules();
+        if (this.runRules() === 'dealer blackjack') return;
         this.reader.question('Hit or Stand? ', input => {
             input = input.toLowerCase();
             if (input === 'stand' || input === 's') {
-                console.log('Stand')
+                console.log('You stand')
                 this.stand();
+                const result = this.runRules(); 
+                console.log(result, 'wins!');
                 this.reader.close();
             } else if (input === 'hit' || input === 'h') {
-                console.log('Hit')
+                console.log('You hit')
                 this.hit(this.player);
                 this.runRules() === 'bust' ? this.reader.close() : this.getPlayerAction();
             } else {
@@ -78,6 +80,7 @@ export default class Game {
     }
 
     runRules() {
+        let winner = '';
         const dealerCardValues = []
         const playerCardValues = [];
         this.dealer.getHand().forEach(card => { dealerCardValues.push(card.value)})
@@ -90,7 +93,8 @@ export default class Game {
             if (dealerCardValues.includes('ace')) {
                 if (dealerCardValues.includes('king') || dealerCardValues.includes('jack') || dealerCardValues.includes('queen') || dealerCardValues.includes()) {
                     console.log('Dealer has Blackjack, you lose.');
-                    this.reader.close();
+                    this.reader.close()
+                    return 'dealer blackjack';
                 }
             }
         }
@@ -98,9 +102,21 @@ export default class Game {
         if (playerTotal > 21) {
             console.log('Your Hand: ' + this.player.getHandStr() + '\nYour Total: ' + this.player.getTotal())
             console.log(`Bust! Your hand is greater than 21.`)
+            console.log('Dealer Wins!');
             return 'bust';
         }
 
+        if (dealerTotal > 21) {
+            console.log('The dealer busts!')
+            winner = 'Player';
+            return winner;
+        }
+
+        if (playerTotal === dealerTotal) return 'push';
+
+        playerTotal > dealerTotal ? winner = 'Player' : winner = 'Dealer';
+        
+        return winner;
     }
 }
 
