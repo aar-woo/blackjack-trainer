@@ -25,17 +25,10 @@ export default class Game {
     }
 
     dealCards() {
-        const ace = new Card('ace', 'spades');
-        const queen = new Card('queen', 'hearts');
-        const five = new Card(5, 'hearts');
-        this.dealer.hand.push(ace)
-        this.dealer.hand.push(five);
-        this.player.hand.push(queen);
-        this.player.hand.push(queen);
-        // for (let i = 0; i < 2; i++) {
-        //     this.dealer.hand.push(this.deck.deal());
-        //     this.player.hand.push(this.deck.deal());
-        // }
+        for (let i = 0; i < 2; i++) {
+            this.dealer.hand.push(this.deck.deal());
+            this.player.hand.push(this.deck.deal());
+        }
     }
 
     gameSetup() {
@@ -66,15 +59,10 @@ export default class Game {
     }
 
     hit(player) {
-        const queen = new Card('queen', 'hearts');
-
         if (!(player instanceof(Dealer))) {
             this.player.hand.push(this.deck.deal())
         } else {
-
-            this.dealer.hand.push(queen);
-
-            // this.dealer.hand.push(this.deck.deal());
+            this.dealer.hand.push(this.deck.deal());
         }
     } 
 
