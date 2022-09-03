@@ -2,6 +2,7 @@ import Dealer from "./dealer.mjs";
 import Deck from "./deck.mjs";
 import Player from "./player.mjs";
 import readline from "readline";
+import Card from "./card.mjs";
 
 export default class Game {
     constructor() {
@@ -24,10 +25,17 @@ export default class Game {
     }
 
     dealCards() {
-        for (let i = 0; i < 2; i++) {
-            this.dealer.hand.push(this.deck.deal());
-            this.player.hand.push(this.deck.deal());
-        }
+        const ace = new Card('ace', 'spades');
+        const queen = new Card('queen', 'hearts');
+        const five = new Card(5, 'hearts');
+        this.dealer.hand.push(ace)
+        this.dealer.hand.push(five);
+        this.player.hand.push(queen);
+        this.player.hand.push(queen);
+        // for (let i = 0; i < 2; i++) {
+        //     this.dealer.hand.push(this.deck.deal());
+        //     this.player.hand.push(this.deck.deal());
+        // }
     }
 
     gameSetup() {
@@ -43,6 +51,7 @@ export default class Game {
             input = input.toLowerCase();
             if (input === 'stand' || input === 's') {
                 console.log('Stand')
+                this.stand();
                 this.reader.close();
             } else if (input === 'hit' || input === 'h') {
                 console.log('Hit')
@@ -57,12 +66,28 @@ export default class Game {
     }
 
     hit(player) {
+        const queen = new Card('queen', 'hearts');
+
         if (!(player instanceof(Dealer))) {
             this.player.hand.push(this.deck.deal())
-        } else if (player === 'dealer') {
-            this.dealer.hand.push(this.deck.deal());
+        } else {
+
+            this.dealer.hand.push(queen);
+
+            // this.dealer.hand.push(this.deck.deal());
         }
     } 
+
+    stand() {
+        let numHits = 0;
+
+        while (this.dealer.getTotal() < 17) {
+            this.hit(this.dealer);
+            numHits++;
+        }
+        console.log('The dealer hit ' + numHits + ' times.')
+        console.log(`The dealer's hand is: ` + this.dealer.getHandStr() + '\nDealer Total: ' + this.dealer.getTotal());
+    }
 
     runRules() {
         const dealerCardValues = []

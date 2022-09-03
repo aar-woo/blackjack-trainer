@@ -40,17 +40,19 @@ export default class Player {
             return this.total
         } 
 
+        let numAces = 0;
+
         allFaceValues.forEach(value => {
-            if (value === 'ace') {
-                if ((this.total + 11 )<= 21) {
-                    this.total += 11;
-                } else {
-                    this.total += 1;
-                }
-            } else {
-                this.total += 10;
-            }
+            value === 'ace' ? numAces++ : this.total += 10;
         })
+
+        for (let i = 0; i < numAces; i++) {
+            if ((this.total + 11) <= 21) {
+                this.total += 11;
+            } else {
+                this.total += 1;
+            }
+        }
 
         return this.total;
     }
