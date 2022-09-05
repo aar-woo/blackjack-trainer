@@ -2,7 +2,7 @@ import Dealer from "./dealer.mjs";
 import Deck from "./deck.mjs";
 import Player from "./player.mjs";
 import readline from "readline";
-import Card from "./card.mjs";
+
 
 export default class Game {
     constructor() {
