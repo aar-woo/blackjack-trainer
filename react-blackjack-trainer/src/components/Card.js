@@ -7,12 +7,19 @@ export default function Card(props) {
     return (
         <div className="card-container">
             <div className="row">
-                <p>3</p>
-                <h3 className='hearts-icon'></h3>
+                <div className='card-value flex-column'>
+                    <p>3</p>
+                    <h3 className='hearts-icon'></h3>
+                </div>
             </div>
-            <div className="suit">
+            <div className="row justify-center">
+                <h1 className='hearts-icon'></h1>
             </div>
-            <div className="row">
+            <div className="row justify-end">
+                <div className='card-value flex-column'>
+                    <p>3</p>
+                    <h3 className='hearts-icon'></h3>
+                </div>
             </div>
         </div>
     )
