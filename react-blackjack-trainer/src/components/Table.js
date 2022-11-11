@@ -1,4 +1,5 @@
 import './Table.css';
+import Card from './Card';
 
 export default function Table() {
 
@@ -8,6 +9,7 @@ export default function Table() {
                 Blackjack Trainer
             </h2>
             <div className='player-cards-zone' >
+                <Card></Card>
             </div>
         </div>
     )
