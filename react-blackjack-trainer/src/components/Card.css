@@ -4,3 +4,22 @@
     border: 1px solid black;
     border-radius: 5px;
 }
+
+
+.spade-icon:after {
+    content: '\2660'
+}
+
+.clubs-icon:after {
+    content: '\2663';
+}
+
+.hearts-icon:after {
+    content: '\2665';
+    color: red;
+}
+
+.diamonds-icon:after {
+    content: '\2666';
+    color: red;
+}
