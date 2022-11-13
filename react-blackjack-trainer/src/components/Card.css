@@ -1,5 +1,5 @@
 .card-container {
-    width: 6rem;
+    width: 7.2rem;
     height: 10rem;
     border: 1px solid black;
     border-radius: 5px;
@@ -10,8 +10,16 @@
     justify-content: space-between;
 }
 
+.card-back {
+    padding: 0;
+    justify-content: center;
+}
 
-.spade-icon:after {
+.card-back img {
+    width: 100%;
+}
+
+.spades-icon:after {
     content: '\2660'
 }
 

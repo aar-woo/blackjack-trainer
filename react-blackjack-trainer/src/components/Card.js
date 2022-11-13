@@ -4,7 +4,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 
 export default function Card(props) {
-    const {value, suit} = props;
+    const {value, suit, face} = props;
+
+    if (face === 'back') {
+        return (
+        <div className="card-container card-back">
+            <img src='images/card-back.png'></img>
+        </div>
+        )
+    }
 
     return (
         <div className="card-container">
