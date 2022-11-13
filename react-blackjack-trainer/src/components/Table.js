@@ -9,7 +9,7 @@ export default function Table() {
                 Blackjack Trainer
             </h2>
             <div className='player-cards-zone' >
-                <Card></Card>
+                <Card suit='hearts' value='3'></Card>
             </div>
         </div>
     )
