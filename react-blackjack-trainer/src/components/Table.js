@@ -13,27 +13,39 @@ export default function Table() {
             <h2 className='title'>
                 Blackjack Trainer
             </h2>
-            <div className='table-info wrapper'>
-                <ReactCurvedText
-                    width={370}
-                    height={300}
-                    cx={190}
-                    cy={120}
-                    rx={100}
+            <div className='table-info'>
+            <ReactCurvedText
+                    width={380}
+                    height={100}
+                    cx={178}
+                    cy={0}
+                    rx={140}
                     ry={100}
-                    startOffset={35}
+                    startOffset={72}
                     reversed={false}
                     text="BLACK JACK PAYS 3 TO 2"
                     textProps={{ style: { fontSize: 24 } }}
-                    textPathProps={null}
+                    textPathProps={{"fill": "#a3a3a3"}}
                     tspanProps={null}
                     ellipseProps={null}
                     svgProps={null}
                 />
-                <h3>
-                    DEALER MUST HIT SOFT 17
-                </h3>
-
+                       <ReactCurvedText
+                    width={380}
+                    height={100}
+                    cx={182}
+                    cy={-55}
+                    rx={140}
+                    ry={100}
+                    startOffset={90}
+                    reversed={false}
+                    text="DEALER MUST HIT SOFT 17"
+                    textProps={{ style: { fontSize: 18 } }}
+                    textPathProps={{"fill": "#ffffff"}}
+                    tspanProps={null}
+                    ellipseProps={null}
+                    svgProps={null}
+                />
             </div>
             <div className='player-cards-zone' >
                 <Card face='back'></Card>
