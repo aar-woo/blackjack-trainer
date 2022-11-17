@@ -54,13 +54,9 @@ export default function Table() {
                     />
                 </div>
             </div>
-
             <div className='player-cards-zone' >
                 <Card value={3} suit={'diamonds'}></Card>
             </div>
-
         </div>
-
-
     )
 }
