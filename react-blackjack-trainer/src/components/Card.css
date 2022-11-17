@@ -1,0 +1,38 @@
+.card-container {
+    width: 7.2rem;
+    height: 10rem;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: white;
+    padding:0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-back {
+    padding: 0;
+    justify-content: center;
+}
+
+.card-back img {
+    width: 100%;
+}
+
+.spades-icon:after {
+    content: '\2660'
+}
+
+.clubs-icon:after {
+    content: '\2663';
+}
+
+.hearts-icon:after {
+    content: '\2665';
+    color: red;
+}
+
+.diamonds-icon:after {
+    content: '\2666';
+    color: red;
+}
