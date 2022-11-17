@@ -1,7 +1,5 @@
 import './Card.css';
 import './utilities.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 
 export default function Card(props) {
     const {value, suit, face} = props;
