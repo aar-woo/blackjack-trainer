@@ -1,6 +1,7 @@
 import './Table.css';
 import Card from './Card';
 import ReactCurvedText from "react-curved-text";
+import Button from './Button';
 
 
 export default function Table() {
@@ -13,7 +14,7 @@ export default function Table() {
                 </h2>
                 <div className='dealer-cards-zone'>
                     <div className='dealer-hand'>
-                        <Card value={4} suit={'hearts'}></Card>
+                        {/* <Card value={4} suit={'hearts'}></Card> */}
                     </div>
                     <div className='deck'>
                         <Card face='back'></Card>
@@ -55,8 +56,9 @@ export default function Table() {
                 </div>
             </div>
             <div className='player-cards-zone' >
-                <Card value={3} suit={'diamonds'}></Card>
+                {/* <Card value={3} suit={'diamonds'}></Card> */}
             </div>
+            <Button text='Deal Cards'/>
         </div>
     )
 }
