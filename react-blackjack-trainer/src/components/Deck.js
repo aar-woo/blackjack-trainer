@@ -8,10 +8,15 @@ export default function Deck() {
     // function that will deal the top card and update state
     // pass values of top card to a Card component and return this 
     const deckObj = new DeckClass();
+    deckObj.createCards();
+    deckObj.shuffle();
     const [deck, updateDeck] = useState(deckObj);
 
-    return (
-        <Card face='back' />
-    )
+    if (deck.getCards().length == 52) {
+        return (
+            <Card face='back' />
+        )
+    } 
+
    
 }

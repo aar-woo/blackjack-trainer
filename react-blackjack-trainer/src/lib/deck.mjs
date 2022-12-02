@@ -29,4 +29,8 @@ export default class Deck {
     const card = this.cards.pop();
     return card;
   }
+
+  getCards() {
+    return this.cards;
+  }
 }
