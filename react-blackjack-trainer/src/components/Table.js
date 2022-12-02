@@ -2,9 +2,12 @@ import './Table.css';
 import Card from './Card';
 import ReactCurvedText from "react-curved-text";
 import Button from './Button';
+import Game from '../lib/game.mjs';
+import Deck from './Deck';
 
 
 export default function Table() {
+    const game = new Game();
 
     return (
         <div className='table-container'>
@@ -17,7 +20,8 @@ export default function Table() {
                         {/* <Card value={4} suit={'hearts'}></Card> */}
                     </div>
                     <div className='deck'>
-                        <Card face='back'></Card>
+                        {/* <Card face='back'></Card> */}
+                        <Deck />
                     </div>
                 </div>
                 <div className='table-info'>
