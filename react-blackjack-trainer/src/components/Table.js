@@ -18,11 +18,13 @@ export default function Table() {
     const [dealerHand, setDealerHand] = useState([]);
 
     function dealCards() {
-        console.log('dealCards run')
-        const hand = [];
-        hand.push(deck.deal())
-        hand.push(deck.deal())
-        setPlayerHand(hand);
+        const playerHand = [];
+        const dealerHand = [];
+        playerHand.push(deck.deal());
+        dealerHand.push(deck.deal());
+        playerHand.push(deck.deal());
+        setPlayerHand(playerHand);
+        setDealerHand(dealerHand);
     }
 
     return (
