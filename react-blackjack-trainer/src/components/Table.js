@@ -4,10 +4,26 @@ import ReactCurvedText from "react-curved-text";
 import Button from './Button';
 import Game from '../lib/game.mjs';
 import Deck from './Deck';
+import DeckClass from "../lib/deck.mjs";
+import { useState } from 'react';
 
 
 export default function Table() {
-    const game = new Game();
+    const deckObj = new DeckClass();
+    deckObj.createCards();
+    deckObj.shuffle();
+    const [deck, updateDeck] = useState(deckObj);
+
+    const [playerHand, setPlayerHand] = useState([]);
+    const [dealerHand, setDealerHand] = useState([]);
+
+    function dealCards() {
+        console.log('dealCards run')
+        const hand = [];
+        hand.push(deck.deal())
+        hand.push(deck.deal())
+        setPlayerHand(hand);
+    }
 
     return (
         <div className='table-container'>
@@ -17,11 +33,9 @@ export default function Table() {
                 </h2>
                 <div className='dealer-cards-zone'>
                     <div className='dealer-hand'>
-                        {/* <Card value={4} suit={'hearts'}></Card> */}
                     </div>
                     <div className='deck'>
-                        {/* <Card face='back'></Card> */}
-                        <Deck />
+                        <Deck deckLength={deck.getCards().length}/>
                     </div>
                 </div>
                 <div className='table-info'>
@@ -60,9 +74,8 @@ export default function Table() {
                 </div>
             </div>
             <div className='player-cards-zone' >
-                {/* <Card value={3} suit={'diamonds'}></Card> */}
             </div>
-            <Button text='Deal Cards'/>
+            <Button text='Deal Cards' onClick={dealCards} />
         </div>
     )
 }

@@ -1,11 +1,9 @@
 import './Button.css';
-import { useState } from 'react';
 
 export default function Button(props) {
-    const [dealtCards, setDealtCards] = useState(false);
-    const {text} = props;
+    const {text, onClick : handleClick} = props;
 
     return (
-        <button className='default-btn'>{text}</button>
+        <button className='default-btn' onClick={handleClick}>{text}</button>
     )
 }
