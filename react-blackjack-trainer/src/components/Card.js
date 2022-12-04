@@ -2,7 +2,9 @@ import './Card.css';
 import './utilities.css';
 
 export default function Card(props) {
-    const {value, suit, face} = props;
+    const {value, suit, face, additionalClasses} = props;
+
+    console.log(additionalClasses)
 
     if (face === 'back') {
         return (
@@ -13,7 +15,7 @@ export default function Card(props) {
     }
 
     return (
-        <div className="card-container">
+        <div className={"card-container " + additionalClasses}>
             <div className="row">
                 <div className='card-value flex-column'>
                     <p>{value}</p>

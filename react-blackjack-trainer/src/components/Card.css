@@ -36,3 +36,15 @@
     content: '\2666';
     color: red;
 }
+
+.underlap {
+    top: 15px;
+    right: 15px;
+    position: relative;
+}
+
+.overlap {
+    top: -15px;
+    left: 15px;
+    position: relative;
+}

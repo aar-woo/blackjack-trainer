@@ -35,9 +35,14 @@
     background-color: hsla(0, 0%, 50%, 0.647);
     padding: 0.5rem;
     border-radius: 10px;
-    display: flex;
+    display: grid;
     align-items: center;
     justify-content: center;
+}
+
+.player-cards-zone .card-container {
+    grid-column-start: 1;
+    grid-row-start: 1;
 }
 
 .dealer-cards-zone {
