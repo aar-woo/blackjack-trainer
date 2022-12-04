@@ -5,7 +5,7 @@ import Button from './Button';
 import Game from '../lib/game.mjs';
 import Deck from './Deck';
 import DeckClass from "../lib/deck.mjs";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 
 export default function Table() {
@@ -75,7 +75,10 @@ export default function Table() {
                     />
                 </div>
             </div>
-            <div className='player-cards-zone' >
+            <div className='player-cards-zone'>
+                {playerHand.map((card) => {
+                    return <Card value={card.value} suit={card.suit} />
+                })}
             </div>
             <Button text='Deal Cards' onClick={dealCards} />
         </div>
