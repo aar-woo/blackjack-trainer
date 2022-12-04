@@ -76,8 +76,8 @@ export default function Table() {
                 </div>
             </div>
             <div className='player-cards-zone'>
-                {playerHand.map((card) => {
-                    return <Card value={card.value} suit={card.suit} />
+                {playerHand.map((card, index) => {
+                    return <Card key={index} value={card.value} suit={card.suit} />
                 })}
             </div>
             <Button text='Deal Cards' onClick={dealCards} />
