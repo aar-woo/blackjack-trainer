@@ -33,9 +33,11 @@
     height: 18rem;
     border: 1px solid grey;
     background-color: hsla(0, 0%, 50%, 0.647);
-    /* margin-bottom: 2rem; */
     padding: 0.5rem;
     border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .dealer-cards-zone {
