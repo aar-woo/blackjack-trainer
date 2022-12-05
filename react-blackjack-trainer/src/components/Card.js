@@ -2,10 +2,9 @@ import './Card.css';
 import './utilities.css';
 
 export default function Card(props) {
-    const {value, suit, face, additionalClasses} = props;
-
-    console.log(additionalClasses)
-
+    let {value, suit, face, additionalClasses} = props;
+    value = typeof value === 'string' ? value[0].toUpperCase() : value;
+    
     if (face === 'back') {
         return (
         <div className="card-container card-back">
