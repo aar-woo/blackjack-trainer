@@ -35,6 +35,9 @@ export default function Table() {
                 </h2>
                 <div className='dealer-cards-zone'>
                     <div className='dealer-hand'>
+                        {dealerHand.map((card) => {
+                            return (<Card value={card.value} suit={card.suit} ></Card>)
+                        })}
                     </div>
                     <div className='deck'>
                         <Deck deckLength={deck.getCards().length}/>
