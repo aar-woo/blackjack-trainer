@@ -37,14 +37,35 @@
     color: red;
 }
 
-.underlap {
+.card-appear {
+    position: absolute;
+    top: 140px;
+    right: 80px;
+}
+
+.overlap.card-appear {
+    transition-delay: .35s;
+}
+
+.card-appear-active {
+    transform: translate(-43px, 380px);
+    transition: all 800ms;
+} 
+
+.underlap.card-appear-active {
+    transform: translate(-72px, 401px);
+    transition: all 800ms;
+}
+
+.card-enter-done.underlap {
     top: 15px;
     right: 15px;
     position: relative;
 }
 
-.overlap {
+.card-enter-done.overlap {
     top: -15px;
     left: 15px;
     position: relative;
 }
+

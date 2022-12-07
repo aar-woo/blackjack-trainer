@@ -13,9 +13,9 @@ export default function Table() {
     deckObj.createCards();
     deckObj.shuffle();
     const [deck, updateDeck] = useState(deckObj);
-
     const [playerHand, setPlayerHand] = useState([]);
     const [dealerHand, setDealerHand] = useState([]);
+    const [inProp, setInProp] = useState(false);
 
     function dealCards() {
         const playerHand = [];
@@ -25,6 +25,7 @@ export default function Table() {
         playerHand.push(deck.deal());
         setPlayerHand(playerHand);
         setDealerHand(dealerHand);
+        setInProp(true);
     }
 
     return (
@@ -82,7 +83,7 @@ export default function Table() {
                 {playerHand.map((card, index) => {
                     let classes;
                     index === 0 ? classes = 'underlap' : classes = 'overlap';
-                    return <Card key={index} value={card.value} suit={card.suit} additionalClasses={classes}/>
+                    return <Card key={index} value={card.value} suit={card.suit} additionalClasses={classes} inProp={inProp}/>
                 })}
             </div>
             <Button text='Deal Cards' onClick={dealCards} />
