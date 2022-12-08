@@ -20,7 +20,7 @@ export default function Table() {
     function dealCards() {
         const playerHand = [];
         const dealerHand = [];
-  
+
         if (deck.cards.length < 52) {
             removeCards();
             setTimeout(deal, 100)
@@ -41,9 +41,9 @@ export default function Table() {
             if (inProp) {
                 setInProp(false);
                 setPlayerHand([]);
-            } 
-        }    
-  
+            }
+        }
+
     }
 
     useEffect(() => {
@@ -52,23 +52,23 @@ export default function Table() {
             setPlayerHand([]);
             setDealerHand([]);
         }
-    }, [playerHand]) 
+    }, [playerHand])
 
- 
+
     return (
         <div className='table-container'>
-            <div className='dealer-side'>
+            <div className='game-container'>
                 <h2 className='title'>
                     Blackjack Trainer
                 </h2>
                 <div className='dealer-cards-zone'>
                     <div className='dealer-hand'>
                         {dealerHand.map((card, index) => {
-                            return (<Card value={card.value} suit={card.suit} key={index}/>)
+                            return (<Card value={card.value} suit={card.suit} key={index} />)
                         })}
                     </div>
                     <div className='deck'>
-                        <Deck deckLength={deck.getCards().length}/>
+                        <Deck deckLength={deck.getCards().length} />
                     </div>
                 </div>
                 <div className='table-info'>
@@ -105,14 +105,21 @@ export default function Table() {
                         svgProps={null}
                     />
                 </div>
+                <div className='player-cards-zone'>
+                    {playerHand.map((card, index) => {
+                        let classes;
+                        index === 0 ? classes = 'underlap' : classes = 'overlap';
+                        return <Card key={index} value={card.value} suit={card.suit} additionalClasses={classes} inProp={inProp} />
+                    })}
+                </div>
             </div>
-            <div className='player-cards-zone'>
+            {/* <div className='player-cards-zone'>
                 {playerHand.map((card, index) => {
                     let classes;
                     index === 0 ? classes = 'underlap' : classes = 'overlap';
                     return <Card key={index} value={card.value} suit={card.suit} additionalClasses={classes} inProp={inProp}/>
                 })}
-            </div>
+            </div> */}
             <Button text='Deal Cards' onClick={dealCards} />
         </div>
     )

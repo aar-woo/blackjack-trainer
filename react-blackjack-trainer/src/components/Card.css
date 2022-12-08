@@ -48,12 +48,12 @@
 }
 
 .card-appear-active {
-    transform: translate(-43px, 380px);
+    transform: translate(-39px, 366px);
     transition: all 800ms;
 } 
 
 .underlap.card-appear-active {
-    transform: translate(-72px, 401px);
+    transform: translate(-68px, 387px);
     transition: all 800ms;
 }
 
