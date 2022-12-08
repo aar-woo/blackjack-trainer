@@ -20,14 +20,41 @@ export default function Table() {
     function dealCards() {
         const playerHand = [];
         const dealerHand = [];
-        playerHand.push(deck.deal());
-        dealerHand.push(deck.deal());
-        playerHand.push(deck.deal());
-        setPlayerHand(playerHand);
-        setDealerHand(dealerHand);
-        setInProp(true);
+  
+        if (deck.cards.length < 52) {
+            removeCards();
+            setTimeout(deal, 100)
+        } else {
+            deal();
+        }
+
+        function deal() {
+            playerHand.push(deck.deal());
+            dealerHand.push(deck.deal());
+            playerHand.push(deck.deal());
+            setPlayerHand(playerHand);
+            setDealerHand(dealerHand);
+            setInProp(true);
+        }
+
+        function removeCards() {
+            if (inProp) {
+                setInProp(false);
+                setPlayerHand([]);
+            } 
+        }    
+  
     }
 
+    useEffect(() => {
+        if (playerHand > 0) {
+            setInProp(false);
+            setPlayerHand([]);
+            setDealerHand([]);
+        }
+    }, [playerHand]) 
+
+ 
     return (
         <div className='table-container'>
             <div className='dealer-side'>

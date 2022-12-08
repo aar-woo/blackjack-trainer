@@ -18,7 +18,7 @@ export default function Card(props) {
     }
 
     return (
-        <CSSTransition nodeRef={nodeRef} in={inProp} appear={true} timeout={1000} classNames="card" onEnter={() => console.log('entered')}>
+        <CSSTransition nodeRef={nodeRef} in={inProp} appear={true} timeout={1000} classNames="card" >
             <div ref={nodeRef} className={"card-container " + additionalClasses}>
                 <div className="row">
                     <div className='card-value flex-column'>
