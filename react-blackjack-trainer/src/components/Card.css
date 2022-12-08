@@ -40,7 +40,7 @@
 .card-appear {
     position: absolute;
     top: 140px;
-    right: 80px;
+    right: 76px;
 }
 
 .overlap.card-appear {
@@ -48,12 +48,12 @@
 }
 
 .card-appear-active {
-    transform: translate(-39px, 366px);
+    transform: translate(-41px, 357px);
     transition: all 800ms;
 } 
 
 .underlap.card-appear-active {
-    transform: translate(-68px, 387px);
+    transform: translate(-71px, 387px);
     transition: all 800ms;
 }
 
@@ -68,4 +68,19 @@
     left: 15px;
     position: relative;
 }
+
+@media (min-width: 450px) {
+    .card-appear-active {
+        transform: translate(-41px, 339px);
+        transition: all 800ms;
+    } 
+    
+    .underlap.card-appear-active {
+        transform: translate(-71px, 369px);
+        transition: all 800ms;
+    }
+    
+}
+
+
 
