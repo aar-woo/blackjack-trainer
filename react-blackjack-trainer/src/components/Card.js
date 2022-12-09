@@ -1,10 +1,8 @@
 import './Card.css';
 import './utilities.css';
 import { CSSTransition } from 'react-transition-group'
-import { useRef, useState } from 'react';
 
 export default function Card(props) {
-    const nodeRef = useRef(null);    
     let {value, suit, face, additionalClasses, inProp} = props;
 
     value = typeof value === 'string' ? value[0].toUpperCase() : value;
@@ -18,8 +16,8 @@ export default function Card(props) {
     }
 
     return (
-        <CSSTransition nodeRef={nodeRef} in={inProp} appear={true} timeout={1200} classNames="card" >
-            <div ref={nodeRef} className={"card-container " + additionalClasses}>
+        <CSSTransition in={inProp} appear={true} timeout={1200} classNames="card" >
+            <div  className={"card-container " + additionalClasses}>
                 <div className="row">
                     <div className='card-value flex-column'>
                         <p>{value}</p>

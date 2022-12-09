@@ -113,13 +113,6 @@ export default function Table() {
                     })}
                 </div>
             </div>
-            {/* <div className='player-cards-zone'>
-                {playerHand.map((card, index) => {
-                    let classes;
-                    index === 0 ? classes = 'underlap' : classes = 'overlap';
-                    return <Card key={index} value={card.value} suit={card.suit} additionalClasses={classes} inProp={inProp}/>
-                })}
-            </div> */}
             <Button text='Deal Cards' onClick={dealCards} />
         </div>
     )
