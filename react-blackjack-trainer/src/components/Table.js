@@ -2,7 +2,6 @@ import './Table.css';
 import Card from './Card';
 import ReactCurvedText from "react-curved-text";
 import Button from './Button';
-import Game from '../lib/game.mjs';
 import Deck from './Deck';
 import DeckClass from "../lib/deck.mjs";
 import { useEffect, useState } from 'react';
@@ -10,7 +9,7 @@ import { useEffect, useState } from 'react';
 
 export default function Table() {
     const deckObj = new DeckClass();
-    deckObj.createCards();
+    deckObj.createShoe();
     deckObj.shuffle();
     const [deck, updateDeck] = useState(deckObj);
     const [playerHand, setPlayerHand] = useState([]);
@@ -43,17 +42,7 @@ export default function Table() {
                 setPlayerHand([]);
             }
         }
-
     }
-
-    useEffect(() => {
-        if (playerHand > 0) {
-            setInProp(false);
-            setPlayerHand([]);
-            setDealerHand([]);
-        }
-    }, [playerHand])
-
 
     return (
         <div className='table-container'>

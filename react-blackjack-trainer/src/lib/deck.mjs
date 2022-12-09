@@ -20,6 +20,12 @@ export default class Deck {
     }
   }
 
+  createShoe() {
+    for (let i = 0; i < 6; i++) {
+      this.createCards();
+    }
+  }
+
   shuffle() {
     const shuffledDeck = _.shuffle(this.cards);
     this.cards = shuffledDeck;
@@ -28,6 +34,10 @@ export default class Deck {
   deal() {
     const card = this.cards.pop();
     return card;
+  }
+  
+  clear() {
+    this.cards = [];
   }
 
   getCards() {
