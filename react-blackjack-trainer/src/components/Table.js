@@ -1,22 +1,70 @@
 import './Table.css';
 import Card from './Card';
 import ReactCurvedText from "react-curved-text";
+import Button from './Button';
+import Deck from './Deck';
+import DeckClass from "../lib/deck.mjs";
+import { useEffect, useState } from 'react';
 
 
 export default function Table() {
+    const deckObj = new DeckClass();
+    deckObj.createShoe();
+    deckObj.shuffle();
+    const [deck, updateDeck] = useState(deckObj);
+    const [playerHand, setPlayerHand] = useState([]);
+    const [dealerHand, setDealerHand] = useState([]);
+    const [inProp, setInProp] = useState(false);
+
+    function dealCards() {
+        const playerHand = [];
+        const dealerHand = [];
+
+        if (deck.cards.length < 52) {
+            deckObj.clear();
+            deckObj.createShoe();
+            deckObj.shuffle();
+            updateDeck(deckObj)
+        } 
+
+        if (deck.cards.length < 312) {
+            removeCards();
+            setTimeout(deal, 100)
+        } else {
+            deal();
+        }
+
+        function deal() {
+            playerHand.push(deck.deal());
+            dealerHand.push(deck.deal());
+            playerHand.push(deck.deal());
+            setPlayerHand(playerHand);
+            setDealerHand(dealerHand);
+            setInProp(true);
+        }
+
+        function removeCards() {
+            if (inProp) {
+                setInProp(false);
+                setPlayerHand([]);
+            }
+        }
+    }
 
     return (
         <div className='table-container'>
-            <div className='dealer-side'>
+            <div className='game-container'>
                 <h2 className='title'>
                     Blackjack Trainer
                 </h2>
                 <div className='dealer-cards-zone'>
                     <div className='dealer-hand'>
-                        <Card value={4} suit={'hearts'}></Card>
+                        {dealerHand.map((card, index) => {
+                            return (<Card value={card.value} suit={card.suit} key={index} />)
+                        })}
                     </div>
                     <div className='deck'>
-                        <Card face='back'></Card>
+                        <Deck deckLength={deck.getCards().length} />
                     </div>
                 </div>
                 <div className='table-info'>
@@ -53,10 +101,15 @@ export default function Table() {
                         svgProps={null}
                     />
                 </div>
+                <div className='player-cards-zone'>
+                    {playerHand.map((card, index) => {
+                        let classes;
+                        index === 0 ? classes = 'underlap' : classes = 'overlap';
+                        return <Card key={index} value={card.value} suit={card.suit} additionalClasses={classes} inProp={inProp} />
+                    })}
+                </div>
             </div>
-            <div className='player-cards-zone' >
-                <Card value={3} suit={'diamonds'}></Card>
-            </div>
+            <Button text='Deal Cards' onClick={dealCards} />
         </div>
     )
 }

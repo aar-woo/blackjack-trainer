@@ -1,0 +1,10 @@
+.default-btn {
+    font-size: 0.9rem;
+    font-family: 'Sono', 'sans-serif';
+    width: 6.5rem;
+    height: 2.5rem;
+    border-radius: 10px;
+    background-color: white;
+    border: 1px solid grey;
+    box-shadow: 4px 5px 3px rgb(0, 66, 28);
+}

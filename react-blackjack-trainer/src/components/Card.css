@@ -36,3 +36,50 @@
     content: '\2666';
     color: red;
 }
+
+.card-appear {
+    position: absolute;
+    top: 140px;
+    right: 76px;
+}
+
+.overlap.card-appear {
+    transition-delay: .35s;
+}
+
+.card-appear-active {
+    transform: translate(-41px, 357px);
+    transition: all 800ms;
+} 
+
+.underlap.card-appear-active {
+    transform: translate(-71px, 387px);
+    transition: all 800ms;
+}
+
+.card-enter-done.underlap {
+    top: 15px;
+    right: 15px;
+    position: relative;
+}
+
+.card-enter-done.overlap {
+    top: -15px;
+    left: 15px;
+    position: relative;
+}
+
+@media (min-width: 450px) {
+    .card-appear-active {
+        transform: translate(-41px, 339px);
+        transition: all 800ms;
+    } 
+    
+    .underlap.card-appear-active {
+        transform: translate(-71px, 369px);
+        transition: all 800ms;
+    }
+}
+
+
+
