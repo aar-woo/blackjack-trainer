@@ -21,6 +21,13 @@ export default function Table() {
         const dealerHand = [];
 
         if (deck.cards.length < 52) {
+            deckObj.clear();
+            deckObj.createShoe();
+            deckObj.shuffle();
+            updateDeck(deckObj)
+        } 
+
+        if (deck.cards.length < 312) {
             removeCards();
             setTimeout(deal, 100)
         } else {
