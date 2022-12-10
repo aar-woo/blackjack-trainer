@@ -59,8 +59,17 @@
     align-items: center;
 }
 
+.actions-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
 .game-actions {
     width: 100%;
+    display: flex;
+    justify-content: space-evenly;
 }
 
 @media (min-width: 450px) {

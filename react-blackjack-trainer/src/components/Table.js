@@ -125,12 +125,12 @@ export default function Table() {
                 </div>
             </div>
             <div className='actions-container'>
-                <Button text='Deal Cards' onClick={dealCards} />
+                <Button text='Deal Cards' classNames='default-btn' onClick={dealCards} />
                 <div className='game-actions'>
-                    <Button text='Hit' />
-                    <Button text='Stand' />
-                    <Button text='Double' />
-                    {playerHasPair === true && <Button text='Split'></Button> }
+                    <Button text='Hit' classNames='action-btn bg-green' />
+                    <Button text='Stand' classNames='action-btn bg-red' />
+                    <Button text='Double' classNames='action-btn bg-grey' />
+                    {playerHasPair === true && <Button text='Split bg-grey'/> }
                 </div>
             </div>
         </div>
