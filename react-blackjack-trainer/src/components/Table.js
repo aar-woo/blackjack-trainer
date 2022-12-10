@@ -109,9 +109,14 @@ export default function Table() {
                     })}
                 </div>
             </div>
-            <Button text='Deal Cards' onClick={dealCards} />
-            <Button text='Hit' />
-            <Button text='Stand' />
+            <div className='actions-container'>
+                <Button text='Deal Cards' onClick={dealCards} />
+                <div className='game-actions'>
+                    <Button text='Hit' />
+                    <Button text='Stand' />
+                    <Button text='Double' />
+                </div>
+            </div>
         </div>
     )
 }

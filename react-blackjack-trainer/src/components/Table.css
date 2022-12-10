@@ -59,6 +59,10 @@
     align-items: center;
 }
 
+.game-actions {
+    width: 100%;
+}
+
 @media (min-width: 450px) {
     .table-container {
         flex-direction: column;
