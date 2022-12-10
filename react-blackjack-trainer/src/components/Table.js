@@ -50,6 +50,10 @@ export default function Table() {
             }
         }
     }
+// console.log(playerHand[0])
+    // if (playerHand[0].value === playerHand[1].value) {
+    //     const splitBtn = <Button text='Split' />
+    // }
 
     return (
         <div className='table-container'>
