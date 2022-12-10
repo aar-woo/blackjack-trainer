@@ -4,7 +4,7 @@ import ReactCurvedText from "react-curved-text";
 import Button from './Button';
 import Deck from './Deck';
 import DeckClass from "../lib/deck.mjs";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 
 export default function Table() {
@@ -15,6 +15,7 @@ export default function Table() {
     const [playerHand, setPlayerHand] = useState([]);
     const [dealerHand, setDealerHand] = useState([]);
     const [inProp, setInProp] = useState(false);
+    const [playerHasPair, setPlayerHasPair] = useState(false);
 
     function dealCards() {
         const playerHand = [];
@@ -50,11 +51,21 @@ export default function Table() {
             }
         }
     }
-// console.log(playerHand[0])
-    // if (playerHand[0].value === playerHand[1].value) {
-    //     const splitBtn = <Button text='Split' />
-    // }
 
+    useEffect(() => {
+        if (playerHand.length === 0) {
+            return;
+        }
+        const faceCardsNotAce = ['king', 'queen', 'jack']
+        const firstCard = playerHand[0];
+        const secondCard = playerHand[1];
+        if (firstCard.value === secondCard.value) {
+            setPlayerHasPair(true);
+        } else if (faceCardsNotAce.includes(firstCard.value) && secondCard.value === 10 || faceCardsNotAce.includes(secondCard) && firstCard.value == 10) {
+            setPlayerHasPair(true);
+        }
+    }, [playerHand])
+    
     return (
         <div className='table-container'>
             <div className='game-container'>
@@ -119,6 +130,7 @@ export default function Table() {
                     <Button text='Hit' />
                     <Button text='Stand' />
                     <Button text='Double' />
+                    {playerHasPair === true && <Button text='Split'></Button> }
                 </div>
             </div>
         </div>
