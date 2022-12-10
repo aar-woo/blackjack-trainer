@@ -4,7 +4,7 @@ import ReactCurvedText from "react-curved-text";
 import Button from './Button';
 import Deck from './Deck';
 import DeckClass from "../lib/deck.mjs";
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 
 export default function Table() {
@@ -110,6 +110,8 @@ export default function Table() {
                 </div>
             </div>
             <Button text='Deal Cards' onClick={dealCards} />
+            <Button text='Hit' />
+            <Button text='Stand' />
         </div>
     )
 }
