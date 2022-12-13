@@ -71,12 +71,12 @@
 
 @media (min-width: 450px) {
     .card-appear-active {
-        transform: translate(-41px, 339px);
+        transform: translate(-41px, 299px);
         transition: all 800ms;
     } 
     
     .underlap.card-appear-active {
-        transform: translate(-71px, 369px);
+        transform: translate(-71px, 329px);
         transition: all 800ms;
     }
 }
