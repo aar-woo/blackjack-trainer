@@ -132,7 +132,9 @@ export default function Table() {
                 </div>
             </div>
             <div className='actions-container'>
-                <Button text='Deal Cards' classNames='default-btn' onClick={dealCards} />
+                <div className='deal-btn-container'>
+                    <Button text='Deal Cards' classNames='default-btn' onClick={dealCards} />
+                </div>
                 <div className='game-actions'>
                     <Button text='Hit' classNames='action-btn bg-green' onClick={getPlayerAction} value='hit' />
                     <Button text='Stand' classNames='action-btn bg-red' onClick={getPlayerAction} value='stand'/>
