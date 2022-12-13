@@ -16,6 +16,7 @@ export default function Table() {
     const [dealerHand, setDealerHand] = useState([]);
     const [inProp, setInProp] = useState(false);
     const [playerHasPair, setPlayerHasPair] = useState(false);
+    const [playerAction, setPlayerAction] = useState();
 
     function dealCards() {
         const playerHand = [];
@@ -65,7 +66,12 @@ export default function Table() {
             setPlayerHasPair(true);
         }
     }, [playerHand])
-    
+
+    const getPlayerAction = event => {
+        const buttonValue = event.target.value;
+        setPlayerAction(buttonValue);
+    }
+     
     return (
         <div className='table-container'>
             <div className='game-container'>
@@ -127,10 +133,10 @@ export default function Table() {
             <div className='actions-container'>
                 <Button text='Deal Cards' classNames='default-btn' onClick={dealCards} />
                 <div className='game-actions'>
-                    <Button text='Hit' classNames='action-btn bg-green' />
-                    <Button text='Stand' classNames='action-btn bg-red' />
-                    <Button text='Double' classNames='action-btn bg-grey' />
-                    {playerHasPair === true && <Button text='Split bg-grey'/> }
+                    <Button text='Hit' classNames='action-btn bg-green' onClick={getPlayerAction} value='hit' />
+                    <Button text='Stand' classNames='action-btn bg-red' onClick={getPlayerAction} value='stand'/>
+                    <Button text='Double' classNames='action-btn bg-grey' onClick={getPlayerAction} value='double'/>
+                    {playerHasPair === true && <Button text='Split'classNames='action-btn bg-grey' onClick={getPlayerAction} value='split'/> }
                 </div>
             </div>
         </div>
