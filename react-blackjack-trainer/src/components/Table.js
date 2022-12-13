@@ -16,7 +16,7 @@ export default function Table() {
     const [dealerHand, setDealerHand] = useState([]);
     const [inProp, setInProp] = useState(false);
     const [playerHasPair, setPlayerHasPair] = useState(false);
-    const [playerAction, setPlayerAction] = useState();
+    const [playerAction, setPlayerAction] = useState("");
 
     function dealCards() {
         const playerHand = [];
@@ -43,6 +43,7 @@ export default function Table() {
             setPlayerHand(playerHand);
             setDealerHand(dealerHand);
             setInProp(true);
+            setPlayerAction("");
         }
 
         function removeCards() {
