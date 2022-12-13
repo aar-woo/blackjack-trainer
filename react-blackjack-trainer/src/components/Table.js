@@ -43,6 +43,7 @@ export default function Table() {
             setPlayerHand(playerHand);
             setDealerHand(dealerHand);
             setInProp(true);
+            setPlayerHasPair(false)
             setPlayerAction("");
         }
 
