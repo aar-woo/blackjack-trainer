@@ -15,6 +15,8 @@ export default function Table() {
     const [playerHand, setPlayerHand] = useState([]);
     const [dealerHand, setDealerHand] = useState([]);
     const [inProp, setInProp] = useState(false);
+    const [playerHasPair, setPlayerHasPair] = useState(false);
+    const [playerAction, setPlayerAction] = useState("");
 
     function dealCards() {
         const playerHand = [];
@@ -41,6 +43,8 @@ export default function Table() {
             setPlayerHand(playerHand);
             setDealerHand(dealerHand);
             setInProp(true);
+            setPlayerHasPair(false)
+            setPlayerAction("");
         }
 
         function removeCards() {
@@ -51,6 +55,25 @@ export default function Table() {
         }
     }
 
+    useEffect(() => {
+        if (playerHand.length === 0) {
+            return;
+        }
+        const faceCardsNotAce = ['king', 'queen', 'jack']
+        const firstCard = playerHand[0];
+        const secondCard = playerHand[1];
+        if (firstCard.value === secondCard.value) {
+            setPlayerHasPair(true);
+        } else if (faceCardsNotAce.includes(firstCard.value) && secondCard.value === 10 || faceCardsNotAce.includes(secondCard) && firstCard.value == 10) {
+            setPlayerHasPair(true);
+        }
+    }, [playerHand])
+
+    const getPlayerAction = event => {
+        const buttonValue = event.target.value;
+        setPlayerAction(buttonValue);
+    }
+     
     return (
         <div className='table-container'>
             <div className='game-container'>
@@ -109,7 +132,17 @@ export default function Table() {
                     })}
                 </div>
             </div>
-            <Button text='Deal Cards' onClick={dealCards} />
+            <div className='actions-container'>
+                <div className='deal-btn-container'>
+                    <Button text='Deal Cards' onClick={dealCards} />
+                </div>
+                <div className='game-actions'>
+                    <Button text='Hit' classNames='action-btn bg-green' onClick={getPlayerAction} value='hit' />
+                    <Button text='Stand' classNames='action-btn bg-red' onClick={getPlayerAction} value='stand'/>
+                    <Button text='Double' classNames='action-btn bg-grey' onClick={getPlayerAction} value='double'/>
+                    {playerHasPair === true && <Button text='Split'classNames='action-btn bg-grey' onClick={getPlayerAction} value='split'/> }
+                </div>
+            </div>
         </div>
     )
 }
