@@ -11,7 +11,7 @@ function compareHardTotal(dealerUpcard, playerTotal) {
 
     if (playerTotal >= 13) {
         return dealerUpcard <= 6 ? 's' : 'h';
-    } else if (playerTotal === '12') {
+    } else if (playerTotal === 12) {
         return dealerUpcard <= 3 || dealerUpcard >= 7 ? 'h' : 's';
     } else if (playerTotal === 10) {
         return dealerUpcard <= 9 ? 'd' : 'h';
