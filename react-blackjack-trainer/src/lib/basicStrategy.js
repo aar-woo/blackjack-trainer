@@ -42,3 +42,4 @@ function compareSoftTotal(dealerUpcard, playerTotal) {
     } 
     return dealerUpcard === 5 || dealerUpcard === 6 ? 'd' : 'h';
 }
+module.exports = { compareHardTotal, compareSoftTotal};
