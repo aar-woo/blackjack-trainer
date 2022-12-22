@@ -35,11 +35,32 @@ function compareSoftTotal(dealerUpcard, playerTotal) {
         return dealerUpcard <= 8 ? 's' : 'h';
     } else if (playerTotal <= 17 && dealerUpcard >= 7) {
         return 'h'
-    } else if (playerTotal >= 15 && dealerUpcard >= 4 &&  dealerUpcard <= 6) {
+    } else if (playerTotal >= 15 && dealerUpcard >= 4 && dealerUpcard <= 6) {
         return 'd';
     } else if (playerTotal >= 15 && dealerUpcard <= 3) {
        return playerTotal === 17 && dealerUpcard === 3 ? 'd' : 'h'
     } 
     return dealerUpcard === 5 || dealerUpcard === 6 ? 'd' : 'h';
 }
-module.exports = { compareHardTotal, compareSoftTotal};
+
+function comparePair(dealerUpcard, pairCardValue) {
+    if (pairCardValue === 11 || pairCardValue === 8) return true;
+    if (pairCardValue === 10 || pairCardValue === 5) return false;
+    if (isBetween(2, 6, dealerUpcard) && isBetween(6, 9, pairCardValue)) {
+        return true;
+    } 
+    if (pairCardValue === 9) {
+        return isBetween(8, 9, dealerUpcard) ? true : false;
+    }
+    if (dealerUpcard >= 8 && pairCardValue <= 7) return false; 
+    if (dealerUpcard <= 7 && pairCardValue <= 3) return true;
+    if (dealerUpcard === 7) {
+        return pairCardValue === 7 ? true : false;
+    }
+    return isBetween(5, 6, dealerUpcard) ? true : false; 
+}
+
+function isBetween(lower, upper, val) {
+    return val >= lower && val <= upper ? true : false;
+}
+module.exports = { compareHardTotal, compareSoftTotal, comparePair };
