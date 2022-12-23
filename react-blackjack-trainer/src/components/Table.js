@@ -67,7 +67,7 @@ export default function Table() {
         const secondCard = playerHand[1];
         if (firstCard.value === secondCard.value) {
             setPlayerHasPair(true);
-        } else if (faceCardsNotAce.includes(firstCard.value) && secondCard.value === 10 || faceCardsNotAce.includes(secondCard) && firstCard.value == 10) {
+        } else if (faceCardsNotAce.includes(firstCard.value) && secondCard.value === 10 || faceCardsNotAce.includes(secondCard.value) && firstCard.value === 10) {
             setPlayerHasPair(true);
         }
     }, [playerHand])
@@ -82,17 +82,34 @@ export default function Table() {
             isMounted.current = true;
             return;
         }
-        if (playerHand.length <= 0) {
-            return;
-        }
-        let dealerUpcard;
-        if (typeof dealerHand[0].value === 'string') {
-            dealerUpcard = dealerUpcard === 'ace' ? 11 : 10
+        if (playerHand.length <= 0) return;
+
+        let dealerUpcard = dealerHand[0];
+        if (typeof dealerUpcard.value === 'string') {
+            dealerUpcard = dealerUpcard.value === 'ace' ? 11 : 10
         } else {
-            dealerUpcard = dealerHand[0].value
+            dealerUpcard = dealerUpcard.value
+        }
+        console.log('dealerUpcard', dealerUpcard)
+
+        let [firstPlayerCard, secondPlayerCard] = playerHand;
+        if (typeof firstPlayerCard.value === 'string') {
+            firstPlayerCard.value = firstPlayerCard === 'ace' ? 11 : 10;
+        }
+        if (typeof secondPlayerCard.value === 'string') {
+            secondPlayerCard.value = secondPlayerCard.value === 'ace' ? 11 : 10;
         }
 
-     
+        if (firstPlayerCard.value === secondPlayerCard.value) {
+            const splitResult = comparePair(dealerUpcard, firstPlayerCard.value);
+
+            if (splitResult) {
+                playerAction === 'split' ? setResult('correct') : setResult('incorrect');
+
+            } else {
+                console.log(compareHardTotal(dealerUpcard, firstPlayerCard.value + secondPlayerCard.value));
+            }
+        }
     }, [playerAction])
 
     return (
