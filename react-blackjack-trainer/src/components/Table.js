@@ -30,7 +30,7 @@ export default function Table() {
             deckObj.createShoe();
             deckObj.shuffle();
             updateDeck(deckObj)
-        } 
+        }
 
         if (deck.cards.length < 312) {
             removeCards();
@@ -82,9 +82,19 @@ export default function Table() {
             isMounted.current = true;
             return;
         }
-        console.log(compareHardTotal, compareSoftTotal, comparePair)
-    }, [playerAction])
+        if (playerHand.length <= 0) {
+            return;
+        }
+        let dealerUpcard;
+        if (typeof dealerHand[0].value === 'string') {
+            dealerUpcard = dealerUpcard === 'ace' ? 11 : 10
+        } else {
+            dealerUpcard = dealerHand[0].value
+        }
+
      
+    }, [playerAction])
+
     return (
         <div className='table-container'>
             <div className='game-container'>
@@ -149,9 +159,9 @@ export default function Table() {
                 </div>
                 <div className='game-actions'>
                     <Button text='Hit' classNames='action-btn bg-green' onClick={getPlayerAction} value='hit' />
-                    <Button text='Stand' classNames='action-btn bg-red' onClick={getPlayerAction} value='stand'/>
-                    <Button text='Double' classNames='action-btn bg-grey' onClick={getPlayerAction} value='double'/>
-                    {playerHasPair === true && <Button text='Split'classNames='action-btn bg-grey' onClick={getPlayerAction} value='split'/> }
+                    <Button text='Stand' classNames='action-btn bg-red' onClick={getPlayerAction} value='stand' />
+                    <Button text='Double' classNames='action-btn bg-grey' onClick={getPlayerAction} value='double' />
+                    {playerHasPair === true && <Button text='Split' classNames='action-btn bg-grey' onClick={getPlayerAction} value='split' />}
                 </div>
             </div>
         </div>
