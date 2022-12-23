@@ -4,7 +4,8 @@ import ReactCurvedText from "react-curved-text";
 import Button from './Button';
 import Deck from './Deck';
 import DeckClass from "../lib/deck.mjs";
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
+import { compareHardTotal, compareSoftTotal, comparePair } from '../lib/basicStrategy';
 
 
 export default function Table() {
@@ -17,6 +18,8 @@ export default function Table() {
     const [inProp, setInProp] = useState(false);
     const [playerHasPair, setPlayerHasPair] = useState(false);
     const [playerAction, setPlayerAction] = useState("");
+    const [result, setResult] = useState("");
+    const isMounted = useRef(false);
 
     function dealCards() {
         const playerHand = [];
@@ -73,6 +76,14 @@ export default function Table() {
         const buttonValue = event.target.value;
         setPlayerAction(buttonValue);
     }
+
+    useEffect(() => {
+        if (isMounted.current === false) {
+            isMounted.current = true;
+            return;
+        }
+        console.log(compareHardTotal, compareSoftTotal, comparePair)
+    }, [playerAction])
      
     return (
         <div className='table-container'>
