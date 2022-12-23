@@ -90,7 +90,6 @@ export default function Table() {
         } else {
             dealerUpcard = dealerUpcard.value
         }
-        console.log('dealerUpcard', dealerUpcard)
 
         let [firstPlayerCard, secondPlayerCard] = playerHand;
         if (typeof firstPlayerCard.value === 'string') {
@@ -102,12 +101,11 @@ export default function Table() {
 
         if (firstPlayerCard.value === secondPlayerCard.value) {
             const splitResult = comparePair(dealerUpcard, firstPlayerCard.value);
-
             if (splitResult) {
                 playerAction === 'split' ? setResult('correct') : setResult('incorrect');
-
             } else {
-                console.log(compareHardTotal(dealerUpcard, firstPlayerCard.value + secondPlayerCard.value));
+                const hardTotalResult = compareHardTotal(dealerUpcard, firstPlayerCard.value + secondPlayerCard.value);
+                playerAction[0] === hardTotalResult ? setResult('correct') : setResult('incorrect');
             }
         }
     }, [playerAction])
