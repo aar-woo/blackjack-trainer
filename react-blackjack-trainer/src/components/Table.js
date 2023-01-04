@@ -89,6 +89,8 @@ export default function Table() {
         }
         if (playerHand.length <= 0) return;
 
+        if (!playerAction) return;
+
         let dealerUpcard = dealerHand[0];
         if (typeof dealerUpcard.value === 'string') {
             dealerUpcard = dealerUpcard.value === 'ace' ? 11 : 10
