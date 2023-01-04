@@ -93,24 +93,39 @@ export default function Table() {
             dealerUpcard = dealerUpcard.value
         }
 
-        let [firstPlayerCard, secondPlayerCard] = playerHand;
-        if (typeof firstPlayerCard.value === 'string') {
-            firstPlayerCard.value = firstPlayerCard === 'ace' ? 11 : 10;
-        }
-        if (typeof secondPlayerCard.value === 'string') {
-            secondPlayerCard.value = secondPlayerCard.value === 'ace' ? 11 : 10;
-        }
+        let playerFirstCardValue = playerHand[0].value;
+        let playerSecondCardValue = playerHand[1].value;
 
-        if (firstPlayerCard.value === secondPlayerCard.value) {
-            const splitResult = comparePair(dealerUpcard, firstPlayerCard.value);
+        if (typeof playerFirstCardValue === 'string') {
+            playerFirstCardValue = playerFirstCardValue === 'ace' ? 11 : 10;
+        }
+        if (typeof playerSecondCardValue === 'string') {
+            playerSecondCardValue = playerSecondCardValue === 'ace' ? 11 : 10;
+        }
+        const playerTotal = playerFirstCardValue + playerSecondCardValue;
+        
+        /** 
+         * Check if the player's hand is a pair and call comparePair function and compare result with user action
+         * If the comparePair result is to not split, then we need to check if the player selected the correct action according to compareHardTotal 
+         **/
+        if (playerFirstCardValue === playerSecondCardValue) {
+            const splitResult = comparePair(dealerUpcard, playerFirstCardValue);
             if (splitResult) {
                 playerAction === 'split' ? setResult('correct') : setResult('incorrect');
             } else if (splitResult == false && playerAction === 'split') {
                 setResult('incorrect')
             } else {
-                const hardTotalResult = compareHardTotal(dealerUpcard, firstPlayerCard.value + secondPlayerCard.value);
+                const hardTotalResult = compareHardTotal(dealerUpcard, playerTotal);
                 playerAction[0] === hardTotalResult ? setResult('correct') : setResult('incorrect');
             }
+        }
+
+        /**
+         * Check if the player's hand is a soft total (has an ace, a card with value of 11)
+         **/
+        if (playerFirstCardValue === 11 || playerSecondCardValue === 11) {
+            const softTotalResult = compareSoftTotal(dealerUpcard, playerTotal);
+            playerAction[0] === softTotalResult ? setResult('correct') : setResult('incorrect');
         }
     }, [playerAction])
 
