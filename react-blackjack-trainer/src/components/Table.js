@@ -6,6 +6,7 @@ import Deck from './Deck';
 import DeckClass from "../lib/deck.mjs";
 import { useEffect, useState, useRef } from 'react';
 import { compareHardTotal, compareSoftTotal, comparePair } from '../lib/basicStrategy';
+import { split } from 'lodash';
 
 
 export default function Table() {
@@ -103,6 +104,8 @@ export default function Table() {
             const splitResult = comparePair(dealerUpcard, firstPlayerCard.value);
             if (splitResult) {
                 playerAction === 'split' ? setResult('correct') : setResult('incorrect');
+            } else if (splitResult == false && playerAction === 'split') {
+                setResult('incorrect')
             } else {
                 const hardTotalResult = compareHardTotal(dealerUpcard, firstPlayerCard.value + secondPlayerCard.value);
                 playerAction[0] === hardTotalResult ? setResult('correct') : setResult('incorrect');
