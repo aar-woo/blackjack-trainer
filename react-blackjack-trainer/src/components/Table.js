@@ -49,6 +49,7 @@ export default function Table() {
             setInProp(true);
             setPlayerHasPair(false)
             setPlayerAction("");
+            setResult("");
         }
 
         function removeCards() {
