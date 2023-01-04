@@ -65,13 +65,16 @@ export default function Table() {
             return;
         }
         const faceCardsNotAce = ['king', 'queen', 'jack']
-        const firstCard = playerHand[0];
-        const secondCard = playerHand[1];
-        if (firstCard.value === secondCard.value) {
-            setPlayerHasPair(true);
-        } else if (faceCardsNotAce.includes(firstCard.value) && secondCard.value === 10 || faceCardsNotAce.includes(secondCard.value) && firstCard.value === 10) {
+        let firstCardVal = playerHand[0].value;
+        let secondCardVal = playerHand[1].value;
+        
+        if (faceCardsNotAce.includes(firstCardVal)) firstCardVal = 10;
+        if (faceCardsNotAce.includes(secondCardVal)) secondCardVal = 10;
+
+        if (firstCardVal === secondCardVal) {
             setPlayerHasPair(true);
         }
+
     }, [playerHand])
 
     const getPlayerAction = event => {
