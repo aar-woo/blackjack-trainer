@@ -126,10 +126,16 @@ export default function Table() {
         /**
          * Check if the player's hand is a soft total (has an ace, a card with value of 11)
          **/
-        if (firstCardVal === 11 || secondCardVal === 11) {
+        else if (firstCardVal === 11 || secondCardVal === 11) {
             const softTotalResult = compareSoftTotal(dealerUpcard, playerTotal);
             playerAction[0] === softTotalResult ? setResult('correct') : setResult('incorrect');
         }
+
+        else {
+            const hardTotalResult = compareHardTotal(dealerUpcard, playerTotal);
+            playerAction[0] === hardTotalResult ? setResult('correct') : setResult('incorrect');
+        }
+        
     }, [playerAction])
 
     return (
