@@ -22,6 +22,11 @@ export default function Table() {
     const [result, setResult] = useState("");
     const isMounted = useRef(false);
 
+    const getPlayerAction = event => {
+        const buttonValue = event.target.value;
+        setPlayerAction(buttonValue);
+    }
+
     function dealCards() {
         const playerHand = [];
         const dealerHand = [];
@@ -60,7 +65,7 @@ export default function Table() {
         }
     }
 
-    useEffect(() => {
+    function checkForPair() {
         if (playerHand.length === 0) {
             return;
         }
@@ -74,15 +79,9 @@ export default function Table() {
         if (firstCardVal === secondCardVal) {
             setPlayerHasPair(true);
         }
-
-    }, [playerHand])
-
-    const getPlayerAction = event => {
-        const buttonValue = event.target.value;
-        setPlayerAction(buttonValue);
     }
 
-    useEffect(() => {
+    function getActionResult() {
         if (isMounted.current === false) {
             isMounted.current = true;
             return;
@@ -136,9 +135,12 @@ export default function Table() {
         else {
             const hardTotalResult = compareHardTotal(dealerUpcard, playerTotal);
             playerAction[0] === hardTotalResult ? setResult('correct') : setResult('incorrect');
-        }
-        
-    }, [playerAction])
+        }   
+    }
+    
+    useEffect(checkForPair, [playerHand])
+    useEffect(getActionResult, [playerAction])
+
 
     return (
         <div className='table-container'>
