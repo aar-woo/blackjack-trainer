@@ -7,6 +7,7 @@ import DeckClass from "../lib/deck.mjs";
 import { useEffect, useState, useRef } from 'react';
 import { compareHardTotal, compareSoftTotal, comparePair } from '../lib/basicStrategy';
 import { split } from 'lodash';
+import Modal from './Modal';
 
 
 export default function Table() {
@@ -137,10 +138,9 @@ export default function Table() {
             playerAction[0] === hardTotalResult ? setResult('correct') : setResult('incorrect');
         }   
     }
-    
+
     useEffect(checkForPair, [playerHand])
     useEffect(getActionResult, [playerAction])
-
 
     return (
         <div className='table-container'>
@@ -198,6 +198,7 @@ export default function Table() {
                         index === 0 ? classes = 'underlap' : classes = 'overlap';
                         return <Card key={index} value={card.value} suit={card.suit} additionalClasses={classes} inProp={inProp} />
                     })}
+                    <Modal />
                 </div>
             </div>
             <div className='actions-container'>
