@@ -198,7 +198,7 @@ export default function Table() {
                         index === 0 ? classes = 'underlap' : classes = 'overlap';
                         return <Card key={index} value={card.value} suit={card.suit} additionalClasses={classes} inProp={inProp} />
                     })}
-                    <Modal />
+                    <Modal text='Correct!' classNames='modal-green' />
                 </div>
             </div>
             <div className='actions-container'>
