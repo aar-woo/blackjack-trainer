@@ -139,6 +139,16 @@ export default function Table() {
         }   
     }
 
+    function displayResult() {
+        if (!result) return;
+
+        if (result === 'correct') {
+            return <Modal text='Correct' classNames='modal-green' />
+        } else {
+            return <Modal text='Incorrect' classNames='modal-red' />
+        }
+    }
+
     useEffect(checkForPair, [playerHand])
     useEffect(getActionResult, [playerAction])
 
@@ -198,7 +208,7 @@ export default function Table() {
                         index === 0 ? classes = 'underlap' : classes = 'overlap';
                         return <Card key={index} value={card.value} suit={card.suit} additionalClasses={classes} inProp={inProp} />
                     })}
-                    <Modal text='Correct!' classNames='modal-green' />
+                    {displayResult()}
                 </div>
             </div>
             <div className='actions-container'>
