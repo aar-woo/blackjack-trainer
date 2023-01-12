@@ -1,0 +1,25 @@
+.modal-box {
+    color: white;
+    border-radius: 1rem;
+    position: fixed;
+    padding: 1rem;
+    width: 14rem;
+    left: 50%;
+    top: 67%;
+    transform: translate(-50%, -50%);
+}
+
+.modal-green {
+    background-color:rgb(0, 216, 7);
+}
+
+.modal-red {
+    background-color: red;
+}
+
+@media (min-width: 450px) {
+   .modal-box {
+    top: 62%;
+   }
+}
+

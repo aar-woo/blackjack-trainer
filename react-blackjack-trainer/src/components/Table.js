@@ -4,7 +4,10 @@ import ReactCurvedText from "react-curved-text";
 import Button from './Button';
 import Deck from './Deck';
 import DeckClass from "../lib/deck.mjs";
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
+import { compareHardTotal, compareSoftTotal, comparePair } from '../lib/basicStrategy';
+import { split } from 'lodash';
+import Modal from './Modal';
 
 
 export default function Table() {
@@ -17,6 +20,13 @@ export default function Table() {
     const [inProp, setInProp] = useState(false);
     const [playerHasPair, setPlayerHasPair] = useState(false);
     const [playerAction, setPlayerAction] = useState("");
+    const [result, setResult] = useState("");
+    const isMounted = useRef(false);
+
+    const getPlayerAction = event => {
+        const buttonValue = event.target.value;
+        setPlayerAction(buttonValue);
+    }
 
     function dealCards() {
         const playerHand = [];
@@ -27,7 +37,7 @@ export default function Table() {
             deckObj.createShoe();
             deckObj.shuffle();
             updateDeck(deckObj)
-        } 
+        }
 
         if (deck.cards.length < 312) {
             removeCards();
@@ -45,6 +55,7 @@ export default function Table() {
             setInProp(true);
             setPlayerHasPair(false)
             setPlayerAction("");
+            setResult("");
         }
 
         function removeCards() {
@@ -55,25 +66,92 @@ export default function Table() {
         }
     }
 
-    useEffect(() => {
+    function checkForPair() {
         if (playerHand.length === 0) {
             return;
         }
         const faceCardsNotAce = ['king', 'queen', 'jack']
-        const firstCard = playerHand[0];
-        const secondCard = playerHand[1];
-        if (firstCard.value === secondCard.value) {
-            setPlayerHasPair(true);
-        } else if (faceCardsNotAce.includes(firstCard.value) && secondCard.value === 10 || faceCardsNotAce.includes(secondCard) && firstCard.value == 10) {
+        let firstCardVal = playerHand[0].value;
+        let secondCardVal = playerHand[1].value;
+
+        if (faceCardsNotAce.includes(firstCardVal)) firstCardVal = 10;
+        if (faceCardsNotAce.includes(secondCardVal)) secondCardVal = 10;
+
+        if (firstCardVal === secondCardVal) {
             setPlayerHasPair(true);
         }
-    }, [playerHand])
-
-    const getPlayerAction = event => {
-        const buttonValue = event.target.value;
-        setPlayerAction(buttonValue);
     }
-     
+
+    function getActionResult() {
+        if (isMounted.current === false) {
+            isMounted.current = true;
+            return;
+        }
+        if (playerHand.length <= 0) return;
+
+        if (!playerAction) return;
+
+        let dealerUpcard = dealerHand[0];
+        if (typeof dealerUpcard.value === 'string') {
+            dealerUpcard = dealerUpcard.value === 'ace' ? 11 : 10
+        } else {
+            dealerUpcard = dealerUpcard.value
+        }
+
+        let firstCardVal = playerHand[0].value;
+        let secondCardVal = playerHand[1].value;
+
+        if (typeof firstCardVal === 'string') {
+            firstCardVal = firstCardVal === 'ace' ? 11 : 10;
+        }
+        if (typeof secondCardVal === 'string') {
+            secondCardVal = secondCardVal === 'ace' ? 11 : 10;
+        }
+        const playerTotal = firstCardVal + secondCardVal;
+        
+        /** 
+         * Check if the player's hand is a pair and call comparePair function and compare result with user action
+         * If the comparePair result is to not split, then we need to check if the player selected the correct action according to compareHardTotal 
+         **/
+        if (firstCardVal === secondCardVal) {
+            const splitResult = comparePair(dealerUpcard, firstCardVal);
+            if (splitResult) {
+                playerAction === 'split' ? setResult('correct') : setResult('incorrect');
+            } else if (splitResult == false && playerAction === 'split') {
+                setResult('incorrect')
+            } else {
+                const hardTotalResult = compareHardTotal(dealerUpcard, playerTotal);
+                playerAction[0] === hardTotalResult ? setResult('correct') : setResult('incorrect');
+            }
+        }
+
+        /**
+         * Check if the player's hand is a soft total (has an ace, a card with value of 11)
+         **/
+        else if (firstCardVal === 11 || secondCardVal === 11) {
+            const softTotalResult = compareSoftTotal(dealerUpcard, playerTotal);
+            playerAction[0] === softTotalResult ? setResult('correct') : setResult('incorrect');
+        }
+
+        else {
+            const hardTotalResult = compareHardTotal(dealerUpcard, playerTotal);
+            playerAction[0] === hardTotalResult ? setResult('correct') : setResult('incorrect');
+        }   
+    }
+
+    function displayResult() {
+        if (!result) return;
+
+        if (result === 'correct') {
+            return <Modal text='Correct' classNames='modal-green' />
+        } else {
+            return <Modal text='Incorrect' classNames='modal-red' />
+        }
+    }
+
+    useEffect(checkForPair, [playerHand])
+    useEffect(getActionResult, [playerAction])
+
     return (
         <div className='table-container'>
             <div className='game-container'>
@@ -130,6 +208,7 @@ export default function Table() {
                         index === 0 ? classes = 'underlap' : classes = 'overlap';
                         return <Card key={index} value={card.value} suit={card.suit} additionalClasses={classes} inProp={inProp} />
                     })}
+                    {displayResult()}
                 </div>
             </div>
             <div className='actions-container'>
@@ -138,9 +217,9 @@ export default function Table() {
                 </div>
                 <div className='game-actions'>
                     <Button text='Hit' classNames='action-btn bg-green' onClick={getPlayerAction} value='hit' />
-                    <Button text='Stand' classNames='action-btn bg-red' onClick={getPlayerAction} value='stand'/>
-                    <Button text='Double' classNames='action-btn bg-grey' onClick={getPlayerAction} value='double'/>
-                    {playerHasPair === true && <Button text='Split'classNames='action-btn bg-grey' onClick={getPlayerAction} value='split'/> }
+                    <Button text='Stand' classNames='action-btn bg-red' onClick={getPlayerAction} value='stand' />
+                    <Button text='Double' classNames='action-btn bg-grey' onClick={getPlayerAction} value='double' />
+                    {playerHasPair === true && <Button text='Split' classNames='action-btn bg-grey' onClick={getPlayerAction} value='split' />}
                 </div>
             </div>
         </div>
