@@ -16,3 +16,10 @@
 .modal-red {
     background-color: red;
 }
+
+@media (min-width: 450px) {
+   .modal-box {
+    top: 62%;
+   }
+}
+
