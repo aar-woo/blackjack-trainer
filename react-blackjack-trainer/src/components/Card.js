@@ -1,23 +1,43 @@
 import "./Card.css";
 import "./utilities.css";
 import { useRef } from "react";
-import { CSSTransition } from "react-transition-group";
-import { motion } from "framer-motion";
+import { easeIn, motion } from "framer-motion";
 
 export default function Card(props) {
   let { value, suit, face, additionalClasses, inProp, playerCardIndex } = props;
   const nodeRef = useRef(null);
 
   value = typeof value === "string" ? value[0].toUpperCase() : value;
+  const cardType =
+    playerCardIndex === 0
+      ? "firstCard"
+      : playerCardIndex === 1
+      ? "secondCard"
+      : "dealerCard";
 
   const variants = {
-    0: {
+    firstCardInitial: {
       x: 50,
       y: -280,
     },
-    1: {
+    secondCardInitial: {
       x: 50,
       y: -440,
+    },
+    firstCard: {
+      x: -10,
+      y: 80,
+      transition: {
+        easeIn,
+      },
+    },
+    secondCard: {
+      x: 20,
+      y: -110,
+      transition: {
+        easeIn,
+        delay: 0.1,
+      },
     },
   };
 
@@ -32,8 +52,8 @@ export default function Card(props) {
   return (
     <motion.div
       variants={variants}
-      initial={variants[playerCardIndex]}
-      animate={{}}
+      initial={variants[`${cardType}Initial`]}
+      animate={variants[cardType]}
     >
       <div ref={nodeRef} className={"card-container " + additionalClasses}>
         <div className="row">
