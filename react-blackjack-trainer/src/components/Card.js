@@ -38,9 +38,8 @@ export default function Card(props) {
     cardTransition: {
       type: "spring",
       stiffness: 200,
-      mass: 0.5,
-      damping: 14,
-      visualDuration: 3,
+      mass: 0.15,
+      damping: 8,
     },
     cardHover: {
       scale: 1.3,
