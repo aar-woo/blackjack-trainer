@@ -42,8 +42,9 @@ export default function Card(props) {
       damping: 8,
     },
     cardHover: {
-      scale: 1.3,
+      scale: 1.2,
       zIndex: 100,
+      boxShadow: "12px 12px 4px -4px rgba(0,0,0,0.75)",
     },
   };
 
