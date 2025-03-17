@@ -1,85 +1,39 @@
 .card-container {
-    width: 7.2rem;
-    height: 10rem;
-    border: 1px solid black;
-    border-radius: 5px;
-    background-color: white;
-    padding:0.5rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  width: 7.2rem;
+  height: 10rem;
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: white;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .card-back {
-    padding: 0;
-    justify-content: center;
+  padding: 0;
+  justify-content: center;
+  backface-visibility: hidden;
 }
 
 .card-back img {
-    width: 100%;
+  width: 100%;
 }
 
 .spades-icon:after {
-    content: '\2660'
+  content: "\2660";
 }
 
 .clubs-icon:after {
-    content: '\2663';
+  content: "\2663";
 }
 
 .hearts-icon:after {
-    content: '\2665';
-    color: red;
+  content: "\2665";
+  color: red;
 }
 
 .diamonds-icon:after {
-    content: '\2666';
-    color: red;
+  content: "\2666";
+  color: red;
 }
-
-.card-appear {
-    position: absolute;
-    top: 140px;
-    right: 76px;
-}
-
-.overlap.card-appear {
-    transition-delay: .35s;
-}
-
-.card-appear-active {
-    transform: translate(-41px, 317px);
-    transition: all 800ms;
-} 
-
-.underlap.card-appear-active {
-    transform: translate(-71px, 347px);
-    transition: all 800ms;
-}
-
-.card-enter-done.underlap {
-    top: 15px;
-    right: 15px;
-    position: relative;
-}
-
-.card-enter-done.overlap {
-    top: -15px;
-    left: 15px;
-    position: relative;
-}
-
-@media (min-width: 450px) {
-    .card-appear-active {
-        transform: translate(-41px, 299px);
-        transition: all 800ms;
-    } 
-    
-    .underlap.card-appear-active {
-        transform: translate(-71px, 329px);
-        transition: all 800ms;
-    }
-}
-
-
-
