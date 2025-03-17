@@ -10,7 +10,6 @@ import {
   compareSoftTotal,
   comparePair,
 } from "../lib/basicStrategy";
-import { split } from "lodash";
 import Modal from "./Modal";
 import { motion } from "framer-motion";
 export default function Table() {
@@ -26,6 +25,7 @@ export default function Table() {
   const [result, setResult] = useState("");
   const isMounted = useRef(false);
   const [startDealerAnimation, setStartDealerAnimation] = useState(false);
+  const [startSecondPlayerCard, setStartSecondPlayerCard] = useState(false);
 
   const getPlayerAction = (event) => {
     const buttonValue = event.target.value;
@@ -42,6 +42,9 @@ export default function Table() {
       deckObj.shuffle();
       updateDeck(deckObj);
     }
+
+    setStartDealerAnimation(false);
+    setStartSecondPlayerCard(false);
 
     if (deck.cards.length < 312) {
       removeCards();
@@ -167,7 +170,21 @@ export default function Table() {
         <div className="dealer-cards-zone">
           <div className="dealer-hand">
             {dealerHand.map((card, index) => {
-              return <Card value={card.value} suit={card.suit} key={index} />;
+              return (
+                <Card
+                  value={card.value}
+                  suit={card.suit}
+                  key={`${card.value}-${card.suit}-${deck.cards.length}`}
+                  animate={
+                    startDealerAnimation && {
+                      x: 0,
+                    }
+                  }
+                  onAnimationComplete={() => {
+                    setStartSecondPlayerCard(true);
+                  }}
+                />
+              );
             })}
           </div>
           <div className="deck">
@@ -210,16 +227,22 @@ export default function Table() {
         </div>
         <div className="player-cards-zone">
           {playerHand.map((card, index) => {
-            let classes;
-            // index === 0 ? (classes = "underlap") : (classes = "overlap");
             return (
               <Card
                 key={index}
                 value={card.value}
                 suit={card.suit}
-                // additionalClasses={classes}
-                inProp={inProp}
                 playerCardIndex={index}
+                animate={
+                  index === 1
+                    ? startSecondPlayerCard && { x: 20, y: -110, rotate: 360 }
+                    : undefined
+                }
+                onAnimationComplete={(latest) => {
+                  if (index === 0) {
+                    setStartDealerAnimation(true);
+                  }
+                }}
               />
             );
           })}

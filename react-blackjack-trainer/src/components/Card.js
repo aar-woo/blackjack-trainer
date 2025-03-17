@@ -4,7 +4,8 @@ import { useRef } from "react";
 import { motion } from "framer-motion";
 
 export default function Card(props) {
-  let { value, suit, face, playerCardIndex, onAnimationComplete } = props;
+  let { value, suit, face, playerCardIndex, onAnimationComplete, animate } =
+    props;
   const nodeRef = useRef(null);
 
   value = typeof value === "string" ? value[0].toUpperCase() : value;
@@ -31,23 +32,19 @@ export default function Card(props) {
       y: 80,
       rotate: 360,
     },
-    secondCard: {
-      x: 20,
-      y: -110,
-      rotate: 360,
-      transition: {
-        type: "spring",
-        delay: 0.2,
-        stiffness: 200,
-        mass: 0.5,
-        damping: 14,
-      },
-    },
     dealerCardInitial: {
       x: 100,
     },
-    dealerCard: {
-      x: 0,
+    cardTransition: {
+      type: "spring",
+      stiffness: 200,
+      mass: 0.5,
+      damping: 14,
+      visualDuration: 3,
+    },
+    cardHover: {
+      scale: 1.3,
+      zIndex: 100,
     },
   };
 
@@ -58,26 +55,19 @@ export default function Card(props) {
       </div>
     );
   }
+
   return (
     <motion.div
       onAnimationComplete={onAnimationComplete}
       variants={variants}
       initial={variants[`${cardType}Initial`]}
-      animate={{
-        bounce: 0,
-        type: "spring",
-        ...variants[cardType],
-      }}
-      transition={{
-        type: "spring",
-        stiffness: 200,
-        mass: 0.5,
-        damping: 14,
-      }}
-      whileHover={{
-        scale: 1.3,
-        zIndex: 100,
-      }}
+      animate={
+        animate || {
+          ...variants[cardType],
+        }
+      }
+      transition={variants.cardTransition}
+      whileHover={variants.cardHover}
     >
       <div ref={nodeRef} className="card-container">
         <div className="row">
