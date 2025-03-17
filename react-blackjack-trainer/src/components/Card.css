@@ -13,6 +13,7 @@
 .card-back {
   padding: 0;
   justify-content: center;
+  backface-visibility: hidden;
 }
 
 .card-back img {

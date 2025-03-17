@@ -12,7 +12,7 @@ import {
 } from "../lib/basicStrategy";
 import { split } from "lodash";
 import Modal from "./Modal";
-
+import { motion } from "framer-motion";
 export default function Table() {
   const deckObj = new DeckClass();
   deckObj.createShoe();
@@ -25,6 +25,7 @@ export default function Table() {
   const [playerAction, setPlayerAction] = useState("");
   const [result, setResult] = useState("");
   const isMounted = useRef(false);
+  const [startDealerAnimation, setStartDealerAnimation] = useState(false);
 
   const getPlayerAction = (event) => {
     const buttonValue = event.target.value;
@@ -161,7 +162,7 @@ export default function Table() {
 
   return (
     <div className="table-container">
-      <div className="game-container">
+      <motion.div className="game-container">
         <h2 className="title">Blackjack Trainer</h2>
         <div className="dealer-cards-zone">
           <div className="dealer-hand">
@@ -224,7 +225,7 @@ export default function Table() {
           })}
           {displayResult()}
         </div>
-      </div>
+      </motion.div>
       <div className="actions-container">
         <div className="deal-btn-container">
           <Button text="Deal Cards" onClick={dealCards} />
