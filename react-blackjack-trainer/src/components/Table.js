@@ -26,6 +26,7 @@ export default function Table() {
   const isMounted = useRef(false);
   const [startDealerAnimation, setStartDealerAnimation] = useState(false);
   const [startSecondPlayerCard, setStartSecondPlayerCard] = useState(false);
+  const [shuffleCount, setShuffleCount] = useState(0);
 
   const getPlayerAction = (event) => {
     const buttonValue = event.target.value;
@@ -187,9 +188,16 @@ export default function Table() {
               );
             })}
           </div>
-          <div className="deck">
+          <motion.div
+            key={shuffleCount}
+            animate={{
+              rotate: [0, -5, 5, -5, 0],
+              y: [0, -10, 0],
+            }}
+            className="deck"
+          >
             <Deck deckLength={deck.getCards().length} />
-          </div>
+          </motion.div>
         </div>
         <div className="table-info">
           <ReactCurvedText
@@ -280,6 +288,10 @@ export default function Table() {
               value="split"
             />
           )}
+          <Button
+            text="Shuffle"
+            onClick={() => setShuffleCount(shuffleCount + 1)}
+          />
         </div>
       </div>
     </div>
