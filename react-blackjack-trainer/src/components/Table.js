@@ -191,7 +191,7 @@ export default function Table() {
           <motion.div
             key={shuffleCount}
             animate={{
-              rotate: [0, -5, 5, -5, 0],
+              rotate: [0, -3, 3, -3, 3, -3, 0],
               y: [0, -10, 0],
             }}
             className="deck"

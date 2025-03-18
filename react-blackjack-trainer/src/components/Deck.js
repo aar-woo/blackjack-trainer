@@ -2,28 +2,31 @@ import Card from "./Card";
 import "./Deck.css";
 import "./Card.css";
 import { motion } from "framer-motion";
+
 export default function Deck(props) {
-  const { deckLength } = props;
+  const deckCards = Array.from({ length: 10 }, (_, i) => i);
 
   return (
     <motion.div>
+      {deckCards.map((index) => {
+        return (
+          <motion.div
+            key={index}
+            className="stacked-card"
+            initial={{
+              x: 0,
+              y: index * -2,
+            }}
+            animate={{
+              x: [0, index % 2 === 0 ? 80 : -80, 0],
+            }}
+            transition={{ delay: index * 0.1, duration: 0.6 }}
+          >
+            <Card face="back" />
+          </motion.div>
+        );
+      })}
       <Card face="back" />
-      <motion.div
-        initial={{ x: 0 }}
-        animate={{ x: [0, 140, 0] }}
-        // transition={{ times: [0, 0.5, 1] }}
-        className="stacked-card"
-      >
-        <Card face="back" />
-      </motion.div>
-      <motion.div
-        initial={{ x: 0 }}
-        animate={{ x: [0, -140, 0] }}
-        transition={{ delay: 0.2 }}
-        className="stacked-card"
-      >
-        <Card face="back" />
-      </motion.div>
     </motion.div>
   );
 }
