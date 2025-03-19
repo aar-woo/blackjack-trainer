@@ -8,12 +8,14 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  box-shadow: 5px 5px 5px -3px rgba(0, 0, 0, 0.75);
 }
 
 .card-back {
   padding: 0;
   justify-content: center;
   backface-visibility: hidden;
+  box-shadow: none;
 }
 
 .card-back img {
