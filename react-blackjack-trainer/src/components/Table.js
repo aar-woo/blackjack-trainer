@@ -290,7 +290,10 @@ export default function Table() {
           )}
           <Button
             text="Shuffle"
-            onClick={() => setShuffleCount(shuffleCount + 1)}
+            onClick={() => {
+              setShuffleCount(shuffleCount + 1);
+              deckObj.shuffle();
+            }}
           />
         </div>
       </div>
