@@ -43,7 +43,8 @@ export default function Card(props) {
     },
     cardHover: {
       scale: 1.2,
-      zIndex: 100,
+      zIndex: 10,
+      position: "relative",
       boxShadow: "12px 12px 4px -4px rgba(0,0,0,0.75)",
     },
   };
