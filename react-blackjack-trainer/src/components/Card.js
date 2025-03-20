@@ -29,7 +29,7 @@ export default function Card(props) {
     },
     firstCard: {
       x: -10,
-      y: 80,
+      y: 105,
       rotate: 360,
     },
     dealerCardInitial: {
