@@ -243,7 +243,7 @@ export default function Table() {
                 playerCardIndex={index}
                 animate={
                   index === 1
-                    ? startSecondPlayerCard && { x: 20, y: -110, rotate: 360 }
+                    ? startSecondPlayerCard && { x: 20, y: -105, rotate: 360 }
                     : undefined
                 }
                 onAnimationComplete={(latest) => {
